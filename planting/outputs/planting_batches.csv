@@ -1,0 +1,52 @@
+﻿crop_key,crop_name,plant_day,season_day,tiles
+seed_472,Parsnip,1,Spring 1,25.0
+seed_472,Parsnip,6,Spring 6,41.0
+seed_475,Potato,6,Spring 6,1.0
+seed_472,Parsnip,11,Spring 11,72.0
+seed_472,Parsnip,13,Spring 13,4.0
+seed_472,Parsnip,16,Spring 16,126.0
+seed_472,Parsnip,18,Spring 18,7.0
+seed_472,Parsnip,22,Spring 22,219.0
+seed_472,Parsnip,23,Spring 23,13.0
+seed_482,Hot Pepper,29,Summer 1,80.0
+seed_483,Wheat,29,Summer 1,35.0
+seed_482,Hot Pepper,30,Summer 2,33.0
+seed_483,Wheat,30,Summer 2,67.0
+seed_483,Wheat,31,Summer 3,29.0
+seed_482,Hot Pepper,34,Summer 6,22.0
+seed_481,Blueberry,35,Summer 7,52.0
+seed_482,Hot Pepper,35,Summer 7,5.0
+seed_483,Wheat,35,Summer 7,48.0
+seed_482,Hot Pepper,36,Summer 8,28.0
+seed_484,Radish,36,Summer 8,24.0
+seed_481,Blueberry,38,Summer 10,22.0
+seed_483,Wheat,38,Summer 10,136.0
+seed_479,Melon,39,Summer 11,5.0
+seed_481,Blueberry,39,Summer 11,2.0
+seed_483,Wheat,39,Summer 11,78.0
+seed_479,Melon,40,Summer 12,26.0
+seed_479,Melon,41,Summer 13,33.0
+seed_479,Melon,42,Summer 14,36.0
+seed_479,Melon,43,Summer 15,67.0
+seed_479,Melon,44,Summer 16,85.0
+seed_484,Radish,45,Summer 17,61.0
+seed_484,Radish,50,Summer 22,12.0
+seed_483,Wheat,53,Summer 25,52.0
+seed_490,Pumpkin,57,Fall 1,107.0
+seed_493,Cranberries,57,Fall 1,107.0
+seed_490,Pumpkin,58,Fall 2,6.0
+seed_492,Yam,58,Fall 2,43.0
+seed_493,Cranberries,58,Fall 2,58.0
+seed_301,Grape,59,Fall 3,21.0
+seed_491,Bok Choy,59,Fall 3,85.0
+seed_490,Pumpkin,60,Fall 4,2.0
+seed_493,Cranberries,60,Fall 4,85.0
+seed_493,Cranberries,61,Fall 5,64.0
+seed_490,Pumpkin,62,Fall 6,21.0
+seed_490,Pumpkin,63,Fall 7,21.0
+seed_490,Pumpkin,65,Fall 9,22.0
+seed_490,Pumpkin,70,Fall 14,35.0
+seed_490,Pumpkin,71,Fall 15,100.0
+seed_492,Yam,73,Fall 17,1.0
+seed_299,Amaranth,76,Fall 20,64.0
+seed_491,Bok Choy,80,Fall 24,53.0

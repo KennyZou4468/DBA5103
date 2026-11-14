@@ -1,0 +1,113 @@
+﻿day,season_day,hoe_status,watering_can_status,new_tilled,plant_decision,watered,harvest_decision,upgrade_submitted,time_minutes,energy,cash_end_g
+1,Spring 1,Basic,Basic,25.0,Parsnip × 25,25.0,-,-,105.0,75.0,0.0
+2,Spring 2,Basic,Basic,0.0,-,25.0,-,-,35.0,25.0,0.0
+3,Spring 3,Basic,Basic,0.0,-,25.0,-,-,35.0,25.0,0.0
+4,Spring 4,Basic,Basic,17.0,-,25.0,-,-,58.8,59.0,0.0
+5,Spring 5,Basic,Basic,0.0,-,0.0,Parsnip × 25,-,35.0,0.0,875.0
+6,Spring 6,Basic,Basic,0.0,Parsnip × 41; Potato × 1,42.0,-,-,117.6,42.0,5.0
+7,Spring 7,Basic,Basic,0.0,-,42.0,-,-,58.8,42.0,5.0
+8,Spring 8,Basic,Basic,0.0,-,42.0,-,-,58.8,42.0,5.0
+9,Spring 9,Basic,Basic,0.0,-,42.0,-,-,58.8,42.0,5.0
+10,Spring 10,Basic,Basic,0.0,-,1.0,Parsnip × 41,-,58.8,1.0,1440.0
+11,Spring 11,Basic,Basic,31.0,Parsnip × 72,73.0,-,-,246.4,135.0,0.0
+12,Spring 12,Basic,Basic,3.0,-,72.0,Potato × 1,-,106.4,78.0,80.0
+13,Spring 13,Basic,Basic,0.0,Parsnip × 4,76.0,-,-,112.0,76.0,0.0
+14,Spring 14,Basic,Basic,54.0,-,76.0,-,-,182.0,184.0,0.0
+15,Spring 15,Basic,Basic,0.0,-,4.0,Parsnip × 72,-,106.4,4.0,2520.0
+16,Spring 16,Basic,Basic,0.0,Parsnip × 126,130.0,-,-,358.4,130.0,0.0
+17,Spring 17,Basic,Basic,0.0,-,126.0,Parsnip × 4,-,182.0,126.0,140.0
+18,Spring 18,Basic,Basic,21.0,Parsnip × 7,133.0,-,-,225.4,175.0,0.0
+19,Spring 19,Basic,Basic,68.0,-,133.0,-,-,281.4,269.0,0.0
+20,Spring 20,Basic,Basic,0.0,-,7.0,Parsnip × 126,-,186.2,7.0,4410.0
+21,Spring 21,Basic,Basic,0.0,-,7.0,-,-,9.8,7.0,4410.0
+22,Spring 22,Basic,Basic,0.0,Parsnip × 219,219.0,Parsnip × 7,-,623.0,219.0,275.0
+23,Spring 23,Basic,Basic,13.0,Parsnip × 13,232.0,-,-,361.2,258.0,15.0
+24,Spring 24,Basic,Basic,0.0,-,232.0,-,-,324.8,232.0,15.0
+25,Spring 25,Basic,Basic,-0.0,-,232.0,-,-,324.8,232.0,15.0
+26,Spring 26,Basic,Basic,-0.0,-,13.0,Parsnip × 219,-,324.8,13.0,7680.0
+27,Spring 27,Basic,送修中,-0.0,-,0.0,Parsnip × 13,Watering Can->Copper,18.2,0.0,5835.0
+28,Spring 28,Basic,送修中,-0.0,-,-0.0,-,-,0.0,0.0,5835.0
+29,Summer 1,Basic,Copper,116.0,Hot Pepper × 80; Wheat × 35,115.0,-,-,484.4,269.95,2285.0
+30,Summer 2,Basic,Copper,99.0,Hot Pepper × 33; Wheat × 67,215.0,-,-,579.6,268.95,295.0
+31,Summer 3,Basic,Copper,94.0,Wheat × 29,244.0,-,-,513.8,268.52,5.0
+32,Summer 4,Basic,Copper,70.0,-,244.0,-,-,439.6,220.52,5.0
+33,Summer 5,Basic,Copper,0.0,-,209.0,Wheat × 35,-,341.6,68.97,880.0
+34,Summer 6,Basic,Copper,0.0,Hot Pepper × 22,164.0,Hot Pepper × 80; Wheat × 67,-,466.2,54.120000000000005,4875.0
+35,Summer 7,Basic,Copper,0.0,Blueberry × 52; Hot Pepper × 5; Wheat × 48,240.0,Hot Pepper × 33; Wheat × 29,-,569.8,79.2,2080.0
+36,Summer 8,Basic,Copper,86.0,Hot Pepper × 28; Radish × 24,292.0,-,-,602.0,268.36,0.0
+37,Summer 9,Basic,Copper,86.0,-,292.0,Hot Pepper × 80,-,641.2,268.36,3200.0
+38,Summer 10,Basic,Copper,0.0,Blueberry × 22; Wheat × 136,450.0,Hot Pepper × 33,-,897.4,148.5,1400.0
+39,Summer 11,Basic,Copper,0.0,Melon × 5; Blueberry × 2; Wheat × 78,487.0,Hot Pepper × 22; Wheat × 48,-,898.8,160.71,2140.0
+40,Summer 12,Basic,Copper,18.0,Melon × 26,513.0,Hot Pepper × 85,-,898.8,205.29000000000002,3460.0
+41,Summer 13,Basic,Copper,0.0,Melon × 33,546.0,Hot Pepper × 61,-,896.0,180.18,3260.0
+42,Summer 14,Basic,Copper,0.0,Melon × 36,422.0,Hot Pepper × 22; Wheat × 136; Radish × 24,-,896.0,139.26000000000002,6820.0
+43,Summer 15,Basic,Copper,0.0,Melon × 67,411.0,Hot Pepper × 85; Wheat × 78,-,897.4,135.63,6810.0
+44,Summer 16,Basic,Copper,0.0,Melon × 85,496.0,Hot Pepper × 61,-,898.8,163.68,2450.0
+45,Summer 17,Basic,Copper,0.0,Radish × 61,557.0,Hot Pepper × 22,-,896.0,183.81,890.0
+46,Summer 18,Basic,Copper,0.0,-,557.0,Hot Pepper × 85,-,898.8,183.81,4290.0
+47,Summer 19,Basic,Copper,0.0,-,557.0,Hot Pepper × 61,-,865.2,183.81,6730.0
+48,Summer 20,Basic,Copper,0.0,-,557.0,Blueberry × 52; Hot Pepper × 22,-,883.4,183.81,15410.0
+49,Summer 21,Basic,Copper,0.0,-,557.0,Hot Pepper × 85,-,898.8,183.81,18810.0
+50,Summer 22,Basic,Copper,0.0,Radish × 12,569.0,Hot Pepper × 61,-,898.8,187.77,20770.0
+51,Summer 23,Basic,Copper,0.0,-,503.0,Melon × 5; Blueberry × 22; Hot Pepper × 22; Radish × 61,-,858.2,165.99,31690.0
+52,Summer 24,送修中,Copper,0.0,-,477.0,Melon × 26; Blueberry × 54; Hot Pepper × 85,Hoe->Copper,898.8,157.41,47390.0
+53,Summer 25,送修中,Copper,0.0,Wheat × 52,496.0,Melon × 33; Hot Pepper × 61,-,898.8,163.68,57560.0
+54,Summer 26,Copper,Copper,-0.0,-,438.0,Melon × 36; Hot Pepper × 22,-,694.4,144.54000000000002,67440.0
+55,Summer 27,Copper,Copper,-0.0,-,264.0,Melon × 67; Blueberry × 22; Hot Pepper × 85,-,613.2,87.12,90890.0
+56,Summer 28,Copper,Copper,-0.0,-,52.0,Melon × 85; Blueberry × 54; Hot Pepper × 61; Radish × 12,-,369.6,17.16,123760.0
+57,Fall 1,Copper,Copper,162.0,Pumpkin × 107; Cranberries × 107,214.0,Wheat × 52,-,898.8,179.16,88680.0
+58,Fall 2,Copper,Copper,214.0,Pumpkin × 6; Yam × 43; Cranberries × 58,321.0,-,-,898.8,249.31,71580.0
+59,Fall 3,Copper,Copper,109.0,Grape × 21; Bok Choy × 85,427.0,-,-,898.8,213.94,66070.0
+60,Fall 4,Copper,Copper,41.0,Pumpkin × 2; Cranberries × 85,514.0,-,-,898.8,197.09,45470.0
+61,Fall 5,Copper,Copper,-0.0,Cranberries × 64,578.0,-,-,898.8,190.74,30110.0
+62,Fall 6,Copper,Copper,21.0,Pumpkin × 21,599.0,-,-,897.4,211.74,28010.0
+63,Fall 7,Copper,Copper,-0.0,Pumpkin × 21,535.0,Bok Choy × 85,-,897.4,176.55,32710.0
+64,Fall 8,Copper,Copper,-0.0,-,535.0,Cranberries × 107,-,898.8,176.55,48760.0
+65,Fall 9,Copper,Copper,-0.0,Pumpkin × 22,557.0,Cranberries × 58,-,891.8,183.81,55260.0
+66,Fall 10,Copper,Copper,-0.0,-,557.0,-,-,779.8,183.81,55260.0
+67,Fall 11,Copper,Copper,-0.0,-,557.0,Cranberries × 85,-,898.8,183.81,68010.0
+68,Fall 12,Copper,Copper,-0.0,-,514.0,Yam × 43; Cranberries × 64,-,869.4,169.62,84490.0
+69,Fall 13,Copper,Copper,-0.0,-,514.0,Grape × 21; Cranberries × 107,-,898.8,169.62,102220.0
+70,Fall 14,Copper,Copper,-0.0,Pumpkin × 35,442.0,Pumpkin × 107; Cranberries × 58,-,898.8,145.86,141660.0
+71,Fall 15,Copper,Copper,-0.0,Pumpkin × 100,536.0,Pumpkin × 6,-,898.8,176.88,133580.0
+72,Fall 16,Copper,Copper,-0.0,-,536.0,Grape × 21; Cranberries × 85,-,898.8,176.88,148010.0
+73,Fall 17,Copper,Copper,-0.0,Yam × 1,535.0,Pumpkin × 2; Cranberries × 64,-,842.8,176.55,158190.0
+74,Fall 18,Copper,Copper,-0.0,-,535.0,Cranberries × 107,-,898.8,176.55,174240.0
+75,Fall 19,Copper,Copper,0.0,-,514.0,Grape × 21; Pumpkin × 21; Cranberries × 58,-,859.6,169.62,191340.0
+76,Fall 20,Copper,Copper,-0.0,Amaranth × 64,557.0,Pumpkin × 21,-,898.8,183.81,193580.0
+77,Fall 21,Copper,Copper,0.0,-,557.0,Cranberries × 85,-,898.8,183.81,206330.0
+78,Fall 22,Copper,Copper,-0.0,-,535.0,Grape × 21; Pumpkin × 22; Cranberries × 64,-,898.8,176.55,224650.0
+79,Fall 23,Copper,Copper,-0.0,-,535.0,Cranberries × 107,-,898.8,176.55,240700.0
+80,Fall 24,Copper,Copper,-0.0,Bok Choy × 53,530.0,Cranberries × 58,-,897.4,174.9,246750.0
+81,Fall 25,Copper,Copper,-0.0,-,530.0,Grape × 21,-,771.4,174.9,248430.0
+82,Fall 26,Copper,Copper,-0.0,-,445.0,Cranberries × 85,-,742.0,146.85,261180.0
+83,Fall 27,Copper,Copper,-0.0,-,281.0,Amaranth × 64; Pumpkin × 35; Yam × 1; Cranberries × 64,-,623.0,92.73,291740.0
+84,Fall 28,Copper,Copper,-0.0,-,-0.0,Grape × 21; Pumpkin × 100; Bok Choy × 53; Cranberries × 107,-,393.4,0.0,345710.0
+85,Winter 1,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+86,Winter 2,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+87,Winter 3,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+88,Winter 4,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+89,Winter 5,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+90,Winter 6,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+91,Winter 7,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+92,Winter 8,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+93,Winter 9,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+94,Winter 10,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+95,Winter 11,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+96,Winter 12,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+97,Winter 13,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+98,Winter 14,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+99,Winter 15,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+100,Winter 16,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+101,Winter 17,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+102,Winter 18,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+103,Winter 19,Copper,Copper,0.0,-,-0.0,-,-,0.0,0.0,345710.0
+104,Winter 20,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+105,Winter 21,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+106,Winter 22,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+107,Winter 23,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+108,Winter 24,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+109,Winter 25,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+110,Winter 26,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+111,Winter 27,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
+112,Winter 28,Copper,Copper,-0.0,-,-0.0,-,-,0.0,0.0,345710.0
