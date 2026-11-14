@@ -1,0 +1,4 @@
+zone_id,mean_generated_containers_per_ordinary_floor,collection_time_game_minutes_per_container,collection_energy_per_container,expected_direct_sale_g_before_bottom_per_container
+mine_1_40,0.0,1.4,0,14.341800
+mine_41_80,10.8,1.4,0,23.572150
+mine_81_120,0.0,1.4,0,27.801500

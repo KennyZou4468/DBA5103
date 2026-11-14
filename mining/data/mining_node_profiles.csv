@@ -1,0 +1,4 @@
+zone_id,level_range,mean_generated_wooden_containers_per_floor,exploration_rocks_required_per_floor_50pct_ceiling,expected_copper_ore_per_broken_rock,expected_iron_ore_per_broken_rock,expected_gold_ore_per_broken_rock,expected_stone_per_broken_rock,expected_coal_per_broken_rock,expected_geode_per_broken_rock,expected_frozen_geode_per_broken_rock,expected_magma_geode_per_broken_rock,expected_omni_geode_per_broken_rock
+mine_1_40,1-39,0.0,33,0.050091,0.002636,0.000000,0.473636,0.013182,0.022000,0.000000,0.000000,0.002436
+mine_41_80,40-79,10.8,29,0.009500,0.028500,0.002000,0.480000,0.010000,0.000000,0.022000,0.000000,0.005000
+mine_81_120,80-120,0.0,33,0.002500,0.007500,0.030000,0.480000,0.010000,0.000000,0.000000,0.022000,0.005000

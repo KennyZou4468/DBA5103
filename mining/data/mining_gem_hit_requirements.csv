@@ -1,0 +1,11 @@
+target_id,target_description,pickaxe_tier,required_swings
+generic_gem_node,"Amethyst, Topaz, Aquamarine, Jade, Emerald, and Ruby nodes",Basic,5
+generic_gem_node,"Amethyst, Topaz, Aquamarine, Jade, Emerald, and Ruby nodes",Copper,3
+generic_gem_node,"Amethyst, Topaz, Aquamarine, Jade, Emerald, and Ruby nodes",Steel,2
+generic_gem_node,"Amethyst, Topaz, Aquamarine, Jade, Emerald, and Ruby nodes",Gold,2
+generic_gem_node,"Amethyst, Topaz, Aquamarine, Jade, Emerald, and Ruby nodes",Iridium,1
+diamond_node,Diamond nodes only,Basic,10
+diamond_node,Diamond nodes only,Copper,5
+diamond_node,Diamond nodes only,Steel,4
+diamond_node,Diamond nodes only,Gold,3
+diamond_node,Diamond nodes only,Iridium,2

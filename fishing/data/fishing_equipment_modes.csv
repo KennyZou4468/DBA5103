@@ -1,0 +1,7 @@
+equipment_mode_id,required_rod_id,minimum_fishing_level,bait_units_per_cast,bait_gold_cost_per_cast,bait_waiting_time_multiplier,tackle_id,tackle_max_wait_reduction_game_minutes,tackle_durability_fish_nibbles_per_item,source_type,model_use_note
+none,bamboo_pole,0,0,0,1.0,none,0.0,0,derived,Use before buying a qualifying rod or whenever no consumable is equipped; bait leaves bite-waiting time unchanged.
+bait,fiberglass_rod,2,1,5,0.5,none,0.0,0,derived,Standard Bait is consumed once per cast and halves bite-waiting time.
+spinner,iridium_rod,6,0,0,1.0,spinner,5.4,20,wiki,Spinner may be used without bait and wears only on a fish nibble.
+bait_spinner,iridium_rod,6,1,5,0.5,spinner,5.4,20,derived,Standard Bait halves bite-waiting time and one Spinner is equipped.
+dressed_spinner,iridium_rod,8,0,0,1.0,dressed_spinner,10.7,20,wiki,Dressed Spinner may be used without bait and wears only on a fish nibble.
+bait_dressed_spinner,iridium_rod,8,1,5,0.5,dressed_spinner,10.7,20,derived,Standard Bait halves bite-waiting time and one Dressed Spinner is equipped.

@@ -1,0 +1,11 @@
+parameter_id,value,unit,effective_from_day,source_type,source_url_or_file,assumption_note,game_version,review_status
+initial_gold_g,500,g,1,study_scope,data/config/study_scope.json,User-confirmed initial condition.,1.6.x,verified
+target_gold_g,100000,g,1,study_scope,data/config/model_config.json,User-confirmed optimization target.,1.6.x,verified
+daily_time_limit_game_minutes,900,game_minutes,1,study_scope,data/config/study_scope.json,09:00-00:00; travel and setup time excluded.,1.6.x,verified
+model_time_unit,game_minutes,unit,1,study_scope,data/config/study_scope.json,All model activity durations must be expressed in game minutes; real seconds are evidence-only until converted.,1.6.x,verified
+daily_energy_limit,270,energy,1,wiki,https://wiki.stardewvalley.net/Energy,Starting maximum energy; food and permanent energy increases excluded.,1.6.x,verified
+season_length_days,28,days,1,study_scope,data/config/model_config.json,Four 28-day seasons in the model.,1.6.x,verified
+year_length_days,112,days,1,derived,data/config/model_config.json,4 seasons x 28 days.,1.6.x,verified
+mine_open_day,5,day,5,wiki,https://wiki.stardewvalley.net/The_Mines,Year 1 Spring 5.,1.6.x,verified
+furnace_owned_at_start,true,boolean,1,study_scope,data/config/study_scope.json,Standard furnace is provided; baseline excludes its construction cost and decision.,1.6.x,verified
+farm_tiles,,tiles,1,study_scope,data/config/study_scope.json,Temporarily unrestricted at the user's instruction; set a finite value before land-constrained optimization.,1.6.x,pending_design_decision

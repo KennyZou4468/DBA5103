@@ -1,0 +1,13 @@
+zone_id,pickaxe_tier,required_swings,available_for_zone
+mine_1_40,Basic,2,true
+mine_1_40,Copper,1,true
+mine_1_40,Steel,1,true
+mine_1_40,Gold,1,true
+mine_41_80,Basic,,false
+mine_41_80,Copper,2,true
+mine_41_80,Steel,1,true
+mine_41_80,Gold,1,true
+mine_81_120,Basic,,false
+mine_81_120,Copper,,false
+mine_81_120,Steel,,false
+mine_81_120,Gold,1,true
