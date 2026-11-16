@@ -1,0 +1,89 @@
+{
+  "type": "long-doc",
+  "lang": "en",
+  "brief": {
+    "audience": "DBA5103 mining teammates and project assessor",
+    "job": "Compare three mining-only resource budgets and explain the robust strategy and its limits.",
+    "template": "long-doc-en",
+    "formats": [
+      "html",
+      "pdf"
+    ],
+    "page_target": 3,
+    "narrative": "Comparison first, mechanism and schedules second, strategy evidence and limitations third.",
+    "required_facts": [
+      "270 / 90 / 134 energy",
+      "Initial cash 500 / 500/3 / 500/3 gold",
+      "Time 900 / 300 / 300 game minutes",
+      "132 ordinary-rock energy; 133.65776 including expected gems",
+      "177440.85398 / 26946.01718567 / 80467.45210567 year-end gold",
+      "Day 75 earliest target for full resources; constrained cases unreachable in Year 1"
+    ],
+    "required_assets": [],
+    "acceptance_checks": [
+      "Exactly three A4 pages",
+      "All three budgets compared explicitly",
+      "One-sentence strategy with finite-horizon caveat",
+      "All numeric claims reconcile to analysis CSVs",
+      "Every page visually inspected; no overflow or isolated headings"
+    ],
+    "preserve": [
+      "Original baseline CSVs",
+      "Existing model and analysis outputs"
+    ],
+    "explicit_deviations": [
+      "Condensed three-page long-doc; cover, navigation and executive summary combined into the first body page instead of separate front matter."
+    ]
+  },
+  "content": {
+    "title": "Mining strategy under three resource budgets",
+    "subtitle": "Standalone mining comparison | Year 1, integer ordinary rocks",
+    "author": "Jiahe | DBA5103 Mining Module",
+    "date": "16 November 2026",
+    "summary": {
+      "claim": "All three Year 1 optima buy Copper, buy Steel, and farm Zone 2. Resource budgets change when that strategy becomes affordable and how much it earns.",
+      "takeaways": [
+        "Full resources: earliest target Day 75; 177,440.85g at Day 112.",
+        "90 to 134 energy: year-end cash rises from 26,946.02g to 80,467.45g.",
+        "Copper and Steel pay back; buying Gold immediately reduces cash."
+      ]
+    },
+    "chapters": [
+      {
+        "title": "Budgets change the outcome, not the upgrade sequence",
+        "claim": "All three Year 1 optima buy Copper, buy Steel, and farm Zone 2. Resource budgets change when that strategy becomes affordable and how much it earns.",
+        "paragraphs": [
+          "Case A uses all resources. Case B reserves one third of energy, time and starting cash. Case C raises only energy from 90 to 134; its 300 minutes and one third of 500g remain unchanged. Case C is an energy sensitivity, not an equal split.",
+          "All cases retain the 100,000g target, mine opening on Day 5, two-day submission lockout, expected yields and a partial final floor. Other-activity income is excluded; unused daily resources cannot be carried forward."
+        ]
+      },
+      {
+        "title": "Clearing one floor unlocks faster growth",
+        "claim": "The minimum for the first floor is 132 energy for ordinary rocks, or 133.65776 including the expected gems collected by the compact model. A whole-number budget of 134 removes the early progression barrier.",
+        "paragraphs": [
+          "The first floor requires 33 ordinary rocks. With Basic, each rock needs two swings and every swing costs two energy: the rocks alone therefore need 132 energy. Expected gems add 1.65776 energy. The model can clear a first floor at 133.65776, but not at 133.65766; 134 is the smallest whole-number budget covering the full bundle.",
+          "At 90 energy, the Basic pickaxe cannot clear a floor. The player repeatedly harvests a partial first floor until Copper is affordable on Day 36; Zone 2 is delayed until Day 76. At 134 energy, Basic clears one floor per day, Copper arrives on Day 27 and Zone 2 opens on Day 37. After Steel on Day 43, the plan farms Zone 2 from Day 45 for about 1,180.51g per day.",
+          "Time remains slack: peak daily mining time is 263.38 of 900 minutes in Case A, 92.19 of 300 in Case B, and 138.99 of 300 in Case C. The added energy accelerates progression and cash generation; more time alone would not remove the initial rock-clearance barrier."
+        ],
+        "figure": {
+          "kind": "Horizontal bar chart",
+          "caption": "Crossing the first-floor energy threshold lifts year-end cash by 53,521.43g, with time and starting cash held fixed."
+        }
+      },
+      {
+        "title": "Upgrade promptly when it pays back",
+        "claim": "With enough time to recover the investment, buy Copper and Steel as soon as affordable, unlock and repeatedly farm Zone 2, and skip Gold unless deeper progression is required.",
+        "paragraphs": [
+          "In all three Year 1 plans, Copper and Steel are submitted on their first affordable morning. Delaying one purchase by a day lowers cash after reoptimization; these tests do not prove that every later date is worse.",
+          "Gold lowers cash when forced on its first affordable morning. The short-horizon exception also matters: the full-resource Day-28 optimum skips Steel, and both constrained Day-28 plans buy no upgrades.",
+          "Strict full clearance deadlocks Case B at 166.67g. Case C stays feasible: Copper on Day 27, Steel on Day 48, and 53,391.54g at Day 112. One-day submission lockout also preserves Copper, Steel and Zone 2 in all cases. These are tested patterns, not a universal theorem."
+        ]
+      }
+    ],
+    "references": [
+      "XG0003_resource_share_summary.csv; XG0003_daily_schedules.csv. Verified model outputs, 16 November 2026.",
+      "XG0003_upgrade_tests.csv; XG0003_target_search.csv; XG0003_assumption_sensitivity.csv. Counterfactual and sensitivity outputs.",
+      "XT0006_full_year_mining_milp.py; XT0007_resource_share_analysis.py. Gurobi MILP and independent schedule validator."
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+<svg viewBox="0 0 680 156" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Optimal Day-112 cash across three mining resource budgets" data-kami-chart="hbar" data-kami-spec="{&quot;decimals&quot;:0,&quot;focus&quot;:2,&quot;items&quot;:[{&quot;label&quot;:&quot;A · Full resources&quot;,&quot;value&quot;:177440.85398},{&quot;label&quot;:&quot;B · One-third resources&quot;,&quot;value&quot;:26946.01718567},{&quot;label&quot;:&quot;C · 134-energy threshold&quot;,&quot;value&quot;:80467.45210567}],&quot;lang&quot;:&quot;en&quot;,&quot;source&quot;:&quot;Source: XG0003_resource_share_summary.csv, 16 Nov 2026&quot;,&quot;suffix&quot;:&quot;g&quot;,&quot;title&quot;:&quot;Optimal Day-112 cash across three mining resource budgets&quot;,&quot;type&quot;:&quot;hbar&quot;,&quot;unit&quot;:&quot;Year-end gold (g)&quot;}">
+  <rect width="100%" height="100%" fill="#f5f4ed"/>
+  <text x="175.3" y="20" fill="#6b6a64" font-size="11" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif">Year-end gold (g)</text>
+  <text x="161.3" y="48" fill="#141413" font-size="12" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif" text-anchor="end">A · Full resources</text>
+  <rect x="175.3" y="35" width="421" height="18" fill="#b8b7b0" rx="2"/>
+  <text x="604.2" y="48" fill="#141413" font-size="12" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif">177,441g</text>
+  <text x="161.3" y="78" fill="#141413" font-size="12" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif" text-anchor="end">B · One-third resources</text>
+  <rect x="175.3" y="65" width="63.9" height="18" fill="#b8b7b0" rx="2"/>
+  <text x="247.2" y="78" fill="#141413" font-size="12" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif">26,946g</text>
+  <text x="161.3" y="108" fill="#141413" font-size="12" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif" text-anchor="end">C · 134-energy threshold</text>
+  <rect x="175.3" y="95" width="190.9" height="18" fill="#1B365D" rx="2"/>
+  <text x="374.2" y="108" fill="#141413" font-size="12" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif" font-weight="500">80,467g</text>
+  <line x1="175.3" y1="31" x2="175.3" y2="117" stroke="#141413" stroke-width="0.8"/>
+  <text x="0" y="150" fill="#6b6a64" font-size="11" font-family="Charter, Georgia, Palatino, 'Times New Roman', serif">Source: XG0003_resource_share_summary.csv, 16 Nov 2026</text>
+</svg>

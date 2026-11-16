@@ -1,0 +1,24 @@
+{
+  "type": "hbar",
+  "items": [
+    {
+      "label": "A \u00b7 Full resources",
+      "value": 177440.85398
+    },
+    {
+      "label": "B \u00b7 One-third resources",
+      "value": 26946.01718567
+    },
+    {
+      "label": "C \u00b7 134-energy threshold",
+      "value": 80467.45210567
+    }
+  ],
+  "focus": 2,
+  "unit": "Year-end gold (g)",
+  "suffix": "g",
+  "decimals": 0,
+  "lang": "en",
+  "title": "Optimal Day-112 cash across three mining resource budgets",
+  "source": "Source: XG0003_resource_share_summary.csv, 16 Nov 2026"
+}
