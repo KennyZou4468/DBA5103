@@ -1,0 +1,170 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\title{\textbf{DBA5103 Group Project 1: Standalone Mining Module}\\
+\large Level-Indexed Mixed-Integer Linear Programming (MILP) Formulation}
+\author{Mining Module Optimization Team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Model Overview}
+This document presents the deterministic discrete-time Mixed-Integer Linear Programming (MILP) formulation for the standalone Mining Module over planning horizon $t \in \mathcal{T} = \{1, \dots, T\}$. Following the course professor's guidance, rather than aggregating daily floors into a coarse integer bundle $M$ with a rigid $R \ge 33 M$ hard constraint, \textbf{each sequential level visited within a day is modeled as an explicit decision variable}. This structure enforces exact sequential ladder clearance ($L_m$ ordinary rocks broken to descend from level $l$ to level $l+1$) while allowing the player to stop at any level and spend remaining daily energy digging \textbf{marginal blocks} ($0 \le r_{l,m,t} < L_m$) on the final level visited each day.
+
+\section{Sets and Indices}
+\begin{itemize}
+    \item $t \in \mathcal{T} = \{1, \dots, T\}$: Planning days ($T = 28$ for Spring; mine opens on day $t_{\text{open}} = 5$). Let $\mathcal{T}_{\text{open}} = \{5, \dots, T\}$.
+    \item $m \in \mathcal{M} = \{1, 2, 3\}$: Mine zones, corresponding to Zone 1 (\texttt{mine\_1\_40}, floors 1--39), Zone 2 (\texttt{mine\_41\_80}, floors 40--79), and Zone 3 (\texttt{mine\_81\_120}, floors 80--120).
+    \item $l \in \mathcal{L} = \{1, 2, 3, 4, 5\}$: Sequential level slot visited within day $t$ (since clearing a ladder requires at least $29 \times 2 = 58$ energy out of $270$ daily energy, at most $4$ ladders can be cleared and at most $5$ levels can be entered per day).
+    \item $k \in \mathcal{K} = \{\text{Basic}, \text{Copper}, \text{Steel}, \text{Gold}\}$: Pickaxe tiers, with upgradeable subset $\mathcal{K}_{\text{upg}} = \{\text{Copper}, \text{Steel}, \text{Gold}\}$.
+    \item $j \in \mathcal{J} = \{\text{Amethyst}, \text{Topaz}, \text{Aquamarine}, \text{Jade}, \text{Emerald}, \text{Ruby}, \text{Diamond}\}$: Gem node types.
+\end{itemize}
+
+\section{Deterministic Parameters}
+\begin{itemize}
+    \item $\text{Cash}_0 = 500\text{g}$: Initial cash balance at $t = 0$.
+    \item $E_{\max} = 270$, $T_{\max} = 900$: Daily energy budget and daily time budget (in game minutes).
+    \item $e_{\text{swing}} = 2.0$, $\tau_{\text{swing}} = 1.4$, $\tau_{\text{cont}} = 1.4$: Energy per pickaxe swing, game minutes per swing, and game minutes per wooden container collected.
+    \item $N_m^{\max} \in \{39, 40, 41\}$: Total physical floors in zone $m \in \{1, 2, 3\}$.
+    \item $\overline{R}_m \in \{65.3, 56.1, 65.2\}$: Maximum ordinary rocks generated per level in zone $m \in \{1, 2, 3\}$.
+    \item $L_m \in \{33, 29, 33\}$: Minimum ordinary rocks required on a level in zone $m$ to unlock the ladder to the next level ($50\%$ ceiling rule).
+    \item $v_m^{\text{rock}} \in \{2.5218\text{g}, 3.6924\text{g}, 5.2476\text{g}\}$: Expected direct-sale cash value per broken ordinary rock in zone $m$.
+    \item $\mu_{j,m} \ge 0$, $v_j^{\text{gem}} > 0$: Expected gem nodes of type $j$ per level in zone $m$, and unit sell price of gem $j$.
+    \item $C_m \in \{0, 10.8, 0\}$, $v_2^{\text{cont}} = 23.57215\text{g}$: Expected wooden containers per level in zone $m$, and expected direct-sale cash value per container in Zone 2.
+    \item $s_{m,k}^{\text{rock}}, s_{j,k}^{\text{gem}}$: Required pickaxe swings per ordinary rock in zone $m$ and per gem node $j$ using pickaxe tier $k$, with $\mathcal{M}_k \subseteq \mathcal{M}$ denoting zones accessible by tier $k$.
+    \item $\text{Cost}_k \in \{2300\text{g}, 5600\text{g}, 11250\text{g}\}$: Cash-equivalent upgrade cost for tier $k \in \mathcal{K}_{\text{upg}}$ (blacksmith fee plus 5 metal bars valued at normal sell price).
+\end{itemize}
+
+\section{Decision Variables}
+
+\subsection{Level-Indexed Operational Variables (Professor's Formulation)}
+\begin{itemize}
+    \item $x_{l,m,t} \in \{0, 1\}$: Binary variable equal to $1$ if the player enters/digs sequential level slot $l \in \mathcal{L}$ in zone $m \in \mathcal{M}$ on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $z_{l,m,t} \in \{0, 1\}$: Binary variable equal to $1$ if sequential level slot $l \in \mathcal{L}$ in zone $m \in \mathcal{M}$ is \textbf{cleared} (at least $L_m$ rocks broken, unlocking the ladder to level $l+1$) on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $r_{l,m,t} \in \mathbb{Z}_{\ge 0}$ (or $\mathbb{R}_{\ge 0}$ in the continuous relaxation): Number of ordinary rocks broken on level slot $l \in \mathcal{L}$ in zone $m \in \mathcal{M}$ on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $p_{m,t}^{\text{push}} \in \mathbb{Z}_{\ge 0}$: Integer number of newly explored floors pushed downward for the first time in zone $m \in \mathcal{M}$ on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $g_{j,t} \ge 0$: Expected quantity of gem node $j \in \mathcal{J}$ harvested on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $c_t \ge 0$: Expected quantity of wooden containers collected in Zone 2 on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $E_t \in [0, E_{\max}]$: Total mining energy expended on day $t \in \mathcal{T}_{\text{open}}$.
+\end{itemize}
+
+\subsection{Tool Upgrade, Zone Access, and Financial State Variables}
+\begin{itemize}
+    \item $u_{k,t} \in \{0, 1\}$: Binary decision to submit pickaxe upgrade to tier $k \in \mathcal{K}_{\text{upg}}$ on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $w_t \in \{0, 1\}$: Binary indicator equal to $1$ if the pickaxe is locked in blacksmith service on day $t \in \mathcal{T}_{\text{open}}$ (2-day lockout).
+    \item $p_{k,t} \in \{0, 1\}$: Binary indicator equal to $1$ if pickaxe tier $k \in \mathcal{K}$ is actively used on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $v_{2,t}, v_{3,t} \in \{0, 1\}$: Binary indicators equal to $1$ if Zone 2 or Zone 3 is visited on day $t \in \mathcal{T}_{\text{open}}$.
+    \item $\text{Cash}_t \ge 0$: Ending cash balance on day $t \in \{4, \dots, T\}$.
+\end{itemize}
+
+\section{Objective Function}
+The primary objective is to maximize terminal cash at the end of planning horizon $T$:
+\begin{equation}
+    \max \quad \text{Cash}_T
+\end{equation}
+where daily cash evolves according to net mining revenue minus pickaxe upgrade expenses.
+
+\section{Constraints}
+
+\subsection{Level Entry, Sequential Ladder Clearance, and Marginal Digging}
+\begin{align}
+    \sum_{m \in \mathcal{M}} x_{1,m,t} &\le 1 - w_t && \forall t \in \mathcal{T}_{\text{open}} \label{eq:slot1} \\
+    \sum_{m \in \mathcal{M}} x_{l+1,m,t} &\le \sum_{m \in \mathcal{M}} z_{l,m,t} && \forall l \in \{1,\dots,4\},\ \forall t \in \mathcal{T}_{\text{open}} \label{eq:seq_clear} \\
+    x_{l+1,1,t} &\le z_{l,1,t} && \forall l \in \{1,\dots,4\},\ \forall t \in \mathcal{T}_{\text{open}} \label{eq:no_regress} \\
+    r_{l,m,t} &\le L_m \cdot z_{l,m,t} + \overline{R}_m \cdot (x_{l,m,t} - z_{l,m,t}) && \forall l \in \mathcal{L},\ \forall m \in \mathcal{M},\ \forall t \in \mathcal{T}_{\text{open}} \label{eq:max_rock} \\
+    r_{l,m,t} &\ge L_m \cdot z_{l,m,t} && \forall l \in \mathcal{L},\ \forall m \in \mathcal{M},\ \forall t \in \mathcal{T}_{\text{open}} \label{eq:ladder_req}
+\end{align}
+\textbf{Explanation and Core Modeling Assumption:} Constraint \eqref{eq:slot1} allows entering the first level of the day only if the pickaxe is not in blacksmith lockout. Constraint \eqref{eq:seq_clear} enforces the professor's sequential clearance rule: within a single daily mine entry, the player can descend to level $l+1$ ($x_{l+1,m,t}=1$) only if level $l$ was cleared ($z_{l,m,t}=1$), which by \eqref{eq:max_rock}--\eqref{eq:ladder_req} requires breaking $L_m$ ordinary rocks to unlock the ladder. Following \texttt{采矿模块\_独立优化说明.md} \S3 and the professor's level-variable guidance, the player performs at most one contiguous mine run per day, meaning \textbf{at most one entered floor per day may remain uncleared} (the final level $l^*$ visited on day $t$, where $z_{l^*,m,t} = 0$ and $0 \le r_{l^*,m,t} \le \overline{R}_m$). This prevents degenerate zero-energy elevator resets (repeatedly entering and exiting Floor 40 without clearing rocks to harvest infinitely many free wooden containers).
+
+\textit{Order-Preserving Chain Bijection for Full-Year ($T=112$) Scaling:} Because $x_{1,m,t} \ge z_{1,m,t} \ge \dots \ge x_{5,m,t}$ forms a monotone binary chain with $r_{l,m,t} = L_m$ on cleared levels ($z_{l,m,t}=1$), there is an exact bijection between $\{x_{l,m,t}, z_{l,m,t}, r_{l,m,t}\}_{l=1}^5$ and $(Z_{m,t}, x_{m,t}^{\text{marg}}, r_{m,t}^{\text{marg}})$, where $Z_{m,t} = \sum_{l=1}^4 z_{l,m,t} \in \{0,\dots,4\}$ counts cleared levels, $x_{m,t}^{\text{marg}} \in \{0,1\}$ (with $\sum_{m \in \mathcal{M}} x_{m,t}^{\text{marg}} \le 1 - w_t$) indicates entry into the single final marginal level $l^* = Z_{m,t}+1$, and $0 \le r_{m,t}^{\text{marg}} \le \overline{R}_m x_{m,t}^{\text{marg}}$ is the marginal rock count. This bijection yields the exact same objective value ($11,389.1884\text{g}$ continuous / $11,372.7683\text{g}$ integer at $T=28$) while keeping the full 112-day Year 1 MILP at $1,620$ variables and $1,842$--$1,953$ constraints.
+
+\subsection{Mine Depth Progression and Zone Unlocking Prerequisites}
+\begin{align}
+    p_{m,t}^{\text{push}} &\le \sum_{l \in \mathcal{L}} z_{l,m,t} && \forall m \in \mathcal{M},\ \forall t \in \mathcal{T}_{\text{open}} \\
+    \sum_{t \in \mathcal{T}_{\text{open}}} p_{m,t}^{\text{push}} &\le N_m^{\max} && \forall m \in \mathcal{M} \\
+    \sum_{l \in \mathcal{L}} x_{l,2,t} &\le |\mathcal{L}| \cdot v_{2,t}, \quad \sum_{l \in \mathcal{L}} x_{l,3,t} \le |\mathcal{L}| \cdot v_{3,t} && \forall t \in \mathcal{T}_{\text{open}} \\
+    39 \cdot x_{1,2,t} &\le \sum_{\tau < t} p_{1,\tau}^{\text{push}}, \quad 39 \cdot v_{2,t} \le \sum_{\tau \le t} p_{1,\tau}^{\text{push}} && \forall t \in \mathcal{T}_{\text{open}} \\
+    40 \cdot x_{1,3,t} &\le \sum_{\tau < t} p_{2,\tau}^{\text{push}}, \quad 40 \cdot v_{3,t} \le \sum_{\tau \le t} p_{2,\tau}^{\text{push}} && \forall t \in \mathcal{T}_{\text{open}} \\
+    \sum_{l \in \mathcal{L}} z_{l,1,t} - p_{1,t}^{\text{push}} &\le |\mathcal{L}| \cdot (1 - v_{2,t}) && \forall t \in \mathcal{T}_{\text{open}} \\
+    \sum_{l \in \mathcal{L}} z_{l,2,t} - p_{2,t}^{\text{push}} &\le |\mathcal{L}| \cdot (1 - v_{3,t}) && \forall t \in \mathcal{T}_{\text{open}} \\
+    v_{2,t} &\le p_{\text{Copper},t} + p_{\text{Steel},t} + p_{\text{Gold},t} && \forall t \in \mathcal{T}_{\text{open}} \\
+    v_{3,t} &\le p_{\text{Gold},t} && \forall t \in \mathcal{T}_{\text{open}}
+\end{align}
+When the optional Depth 120 quest is enforced (Scenario B), reaching Floor 120 requires clearing all $39$ ladders in Zone 1, all $40$ ladders in Zone 2, and $40$ ladders in Zone 3 (advancing from Floor 80 to Floor 120).
+
+\subsection{Gem Node and Wooden Container Capacities}
+\begin{align}
+    g_{j,t} &\le \sum_{m \in \mathcal{M}} \mu_{j,m} \sum_{l \in \mathcal{L}} x_{l,m,t} && \forall j \in \mathcal{J},\ \forall t \in \mathcal{T}_{\text{open}} \\
+    c_t &\le C_2 \sum_{l \in \mathcal{L}} x_{l,2,t} && \forall t \in \mathcal{T}_{\text{open}}
+\end{align}
+
+\subsection{Pickaxe Upgrade Sequence and Blacksmith Lockout}
+\begin{align}
+    \sum_{t \in \mathcal{T}_{\text{open}}} u_{k,t} &\le 1 && \forall k \in \mathcal{K}_{\text{upg}} \\
+    u_{\text{Steel},t} &\le \sum_{\tau \le t-2} u_{\text{Copper},\tau}, \quad u_{\text{Gold},t} \le \sum_{\tau \le t-2} u_{\text{Steel},\tau} && \forall t \in \mathcal{T}_{\text{open}} \\
+    w_t &= \sum_{k \in \mathcal{K}_{\text{upg}}} u_{k,t} + \sum_{k \in \mathcal{K}_{\text{upg}}} u_{k,t-1} && \forall t \in \mathcal{T}_{\text{open}} \\
+    \sum_{k \in \mathcal{K}} p_{k,t} &= 1 - w_t && \forall t \in \mathcal{T}_{\text{open}} \\
+    p_{k,t} &\le \sum_{\tau \le t-2} u_{k,\tau} && \forall k \in \mathcal{K}_{\text{upg}},\ \forall t \in \mathcal{T}_{\text{open}}
+\end{align}
+
+\subsection{Daily Energy and Time Budgets}
+Because every pickaxe swing across all zones $m \in \mathcal{M}$ and tool tiers $k \in \mathcal{K}$ consumes $e_{\text{swing}} = 2.0$ energy and $\tau_{\text{swing}} = 1.4$ game minutes ($0.7\text{ min/energy}$), while each wooden container consumes $0$ energy and $\tau_{\text{cont}} = 1.4$ game minutes, the daily energy and time constraints across all zones and tiers are:
+\begin{align}
+    \sum_{m \in \mathcal{M}_k} \left(e_{\text{swing}} s_{m,k}^{\text{rock}} \sum_{l \in \mathcal{L}} r_{l,m,t}\right) + \sum_{j \in \mathcal{J}} e_{\text{swing}} s_{j,k}^{\text{gem}} g_{j,t} &\le E_t + M_E (1 - p_{k,t}) && \forall k \in \mathcal{K},\ \forall t \in \mathcal{T}_{\text{open}} \\
+    E_t &\le E_{\max} (1 - w_t) && \forall t \in \mathcal{T}_{\text{open}} \\
+    0.7 E_t + \tau_{\text{cont}} c_t &\le T_{\max} (1 - w_t) && \forall t \in \mathcal{T}_{\text{open}} \label{eq:time_exact}
+\end{align}
+where $M_E = 600$ is a valid Big-$M$ constant relaxing inactive tool tiers when $p_{k,t} = 0$. Note that in the standalone model without food energy replenishment, $E_t \le 270$ and $c_t \le 54$ imply $0.7 E_t + 1.4 c_t \le 189 + 75.6 = 264.6\text{ min} \le 900\text{ min}$, and \eqref{eq:time_exact} provides the exact daily time coupling expression $T_t^{\text{mine}} = 0.7 E_t + 1.4 c_t$ for Phase 2 global integration.
+
+\subsection{Cash Flow Dynamics and Solvency}
+\begin{align}
+    \text{Cash}_{4} &= \text{Cash}_0 = 500 \\
+    \text{Rev}_t &= \sum_{m \in \mathcal{M}} v_m^{\text{rock}} \sum_{l \in \mathcal{L}} r_{l,m,t} + v_2^{\text{cont}} c_t + \sum_{j \in \mathcal{J}} v_j^{\text{gem}} g_{j,t} && \forall t \in \mathcal{T}_{\text{open}} \\
+    \text{Cash}_t &= \text{Cash}_{t-1} + \text{Rev}_t - \sum_{k \in \mathcal{K}_{\text{upg}}} \text{Cost}_k u_{k,t} && \forall t \in \mathcal{T}_{\text{open}} \\
+    \text{Cash}_t &\ge 0 && \forall t \in \mathcal{T}_{\text{open}}
+\end{align}
+Enforcing $\text{Cash}_t \ge 0$ on every active day $t \in \mathcal{T}_{\text{open}}$ guarantees non-negative daily cash balances and start-of-day upgrade solvency ($\text{Cash}_{t-1} \ge \sum_k \text{Cost}_k u_{k,t}$ whenever $u_{k,t} = 1 \implies w_t = 1 \implies \text{Rev}_t = 0$).
+
+\section{Summary of Optimal Spring ($T = 28$) and Full Year 1 ($T = 112$) Solutions}
+Solving the MILP to $0.0\%$ optimality gap with Gurobi 12.0.3 yields:
+
+\subsection{Spring Horizon ($T = 28$ Days)}
+\begin{itemize}
+    \item \textbf{Days 1--4:} Mine is closed; cash remains $500.00\text{g}$.
+    \item \textbf{Days 5--13 (Zone 1 Exploration with Basic Pickaxe):} The player enters $3$ levels/day and clears $2$ ladders/day ($66$ integer rocks; or $66.26$ rocks in the continuous relaxation), earning $211.20\text{g}$/day ($211.85\text{g}$/day continuous). By Day 13, cash reaches $2,400.79\text{g}$ ($2,406.62\text{g}$ continuous), and cumulative physical resources mined reach $29.7$ Copper Ore ($\ge 25$ required for 5 Copper Bars) and $7.9$ Coal ($\ge 5$ required).
+    \item \textbf{Days 14--15 (Copper Pickaxe Upgrade):} Upgrades to Copper Pickaxe on Day 14 for $2,300.00\text{g}$; 2-day blacksmith lockout on Days 14--15.
+    \item \textbf{Days 16--20 (Zone 1 Push with Copper Pickaxe):} Enters $5$ levels/day, clears $4$ ladders/day ($132$ integer rocks/day, $407.48\text{g}$/day; or $132.51$ continuous rocks, $408.77\text{g}$/day), advancing depth to $37$.
+    \item \textbf{Day 21 (Zone 1 $\to$ Zone 2 Transition):} Finishes clearing Floor 39 of Zone 1 and immediately transitions into Zone 2 on the same day, earning $945.13\text{g}$ ($945.50\text{g}$ continuous).
+    \item \textbf{Days 22--28 (Zone 2 Harvesting with Copper Pickaxe):} For a standalone $T=28$ horizon, only $4$ days remain once $5,600\text{g}$ is accumulated on Day 24 ($< 10$-day payback threshold for Steel Pickaxe), so the solver optimally withholds the Steel upgrade and farms Zone 2 with the Copper Pickaxe ($66$ integer rocks/day $= 1,184.21\text{g}$/day; or $66.15$ continuous rocks/day $= 1,184.74\text{g}$/day), reaching $\text{Cash}_{28}^* = \mathbf{11,372.77\text{g}}$ (integer rocks) or $\mathbf{11,389.19\text{g}}$ (continuous rocks).
+\end{itemize}
+
+\subsection{Full Year 1 Horizon ($T = 112$ Days)}
+\begin{itemize}
+    \item \textbf{Scenario A (Pure Cash Maximization):}
+    \begin{itemize}
+        \item On \textbf{Day 25 (Spring 25)}, as soon as cash exceeds $5,600\text{g}$, the solver submits the \textbf{Steel Pickaxe upgrade} (lockout on Days 25--26).
+        \item From \textbf{Day 27 to Day 112 (Spring 27 -- Winter 28)}, the player farms Zone 2 with the Steel Pickaxe, entering $5$ levels/day, clearing $4$ ladders ($116$ rocks) and digging $15$ integer marginal rocks ($15.87$ continuous) on the 5th level ($131$ integer rocks, $54.0$ wooden containers, $1.39$ gems, $268.25$ energy, $263.38$ mins), earning $\mathbf{2,051.22\text{g}}$\textbf{/day} ($\mathbf{2,054.44\text{g}}$\textbf{/day} continuous).
+        \item \textbf{First Day Reaching $100,000\text{g}$ Target:} \textbf{Day 75 (Fall 19)} ($\text{Cash}_{75} = 101,545.72\text{g}$ integer / $101,717.89\text{g}$ continuous).
+        \item \textbf{Optimal Year 1 Terminal Cash (Day 112):} $\mathbf{177,440.85\text{g}}$ (integer rocks) / $\mathbf{177,732.25\text{g}}$ (continuous rocks), ending at Depth $79$.
+    \end{itemize}
+    \item \textbf{Scenario B (Mandatory Depth 120 Completion, $D_{112} = 120$):}
+    \begin{itemize}
+        \item Upgrades to \textbf{Gold Pickaxe} ($11,250\text{g}$) on \textbf{Day 32 (Summer 4)} (lockout Days 32--33).
+        \item Transitions into Zone 3 on \textbf{Day 37 (Summer 9)} and pushes Zone 3 through \textbf{Day 50 (Summer 22)} ($3$ ladders cleared $= 99$ rocks $+$ $31$ integer marginal rocks $= 130$ rocks/day, earning $1,202.14\text{g}$/day integer / $1,206.29\text{g}$/day continuous) until Floor 120 is reached.
+        \item Returns to refarm Zone 2 with the Gold Pickaxe on \textbf{Days 51--112} ($116$ cleared $+$ $16$ integer marginal rocks $= 132$ rocks/day, $2,054.91\text{g}$/day integer / $2,055.09\text{g}$/day continuous).
+        \item \textbf{First Day Reaching $100,000\text{g}$ Target:} \textbf{Day 88 (Winter 4)} ($\text{Cash}_{88} = 101,391.79\text{g}$ integer / $101,484.50\text{g}$ continuous).
+        \item \textbf{Optimal Year 1 Terminal Cash with Depth 120 (Day 112):} $\mathbf{150,709.68\text{g}}$ (integer rocks) / $\mathbf{150,806.63\text{g}}$ (continuous rocks).
+    \end{itemize}
+\end{itemize}
+
+\end{document}
