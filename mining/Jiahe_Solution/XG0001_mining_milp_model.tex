@@ -167,4 +167,44 @@ Solving the MILP to $0.0\%$ optimality gap with Gurobi 12.0.3 yields:
     \end{itemize}
 \end{itemize}
 
+
+\section{Resource Allocation, Earliest Target Day, and Strategy Robustness}
+The new comparisons use integer ordinary rocks, expected-value yields, a partial final floor, two-day submission lockout, cash-equivalent upgrades, and no required Floor 120. They exclude income or transfers from other activities. For share $s$, the standalone budgets become $E_{\max}=270s$, $T_{\max}=900s$, and $\mathrm{Cash}_0=500s$. The target remains $100{,}000\mathrm{g}$. An additional controlled case changes only energy to $134$, retaining $300$ minutes/day and $500/3\mathrm{g}$ initial cash.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Metric & Full & One third & 134 energy \\
+\midrule
+Daily energy & 270 & 90 & 134 \\
+Initial cash (g) & 500.00 & 166.67 & 166.67 \\
+Daily time (minutes) & 900 & 300 & 300 \\
+Copper submission day & 14 & 36 & 27 \\
+First Zone 2 visit & 21 & 76 & 37 \\
+Steel submission day & 25 & 77 & 43 \\
+Gold purchased & No & No & No \\
+Optimal Day-112 cash (g) & 177,440.85 & 26,946.02 & 80,467.45 \\
+Earliest target within Year 1 & 75 & Unreachable & Unreachable \\
+\bottomrule
+\end{tabular}
+\end{center}
+These dates describe selected optima rather than a uniqueness claim. Initial cash is not rounded during optimization. Daily floors regenerate, so partially cleared floors and unused energy cannot be saved for subsequent days.
+
+\subsection{Minimum Energy to Clear the First Floor}
+With Basic, breaking the minimum $33$ ordinary rocks costs $33\times2\times2=132$ energy. The existing compact solver collects all expected gems on an entered floor as well, adding $1.65776$ expected energy. Its threshold is therefore $133.65776$, rounded up to a whole-number budget of $134$. If optional gems are skipped in the more detailed formulation, the ordinary-rock threshold alone is $132$. These are deterministic expected-layout thresholds, not real-game guarantees.
+
+At $90$ energy the player cannot clear the first floor with Basic, but can harvest marginal rocks to save for Copper. At $134$ energy, progression starts immediately. The latter plan clears one floor/day before Copper, buys Copper on Day 27, reaches Zone 2 on Day 37, buys Steel on Day 43, and farms Zone 2 from Day 45 for approximately $1{,}180.51\mathrm{g}$/day.
+
+\subsection{Earliest-Day Certificate}
+Let $F(T)$ denote maximum attainable cash at horizon $T$. Feasible schedules can be extended with idle days, making $F(T)$ nondecreasing. Binary search over independently optimized horizons finds the first $T$ with $F(T)\ge100{,}000$. For full resources, $F(74)=99{,}494.50$ and $F(75)=101{,}545.72$, proving Day 75 is the earliest target date. For the two constrained cases even $F(112)<100{,}000$, proving the target is unreachable within Year 1. No target date beyond Year 1 is claimed.
+
+\subsection{A Qualified One-Sentence Policy}
+\textbf{With enough time for the investment to pay back, buy Copper and Steel as soon as affordable, unlock and repeatedly farm Zone 2, and skip Gold unless deeper progression is required.}
+
+Each purchase in the three Year 1 plans is made on its first affordable morning along that selected cash path. Delaying Copper by one day and reoptimizing all other choices costs $435.35$, $715.38$, and $807.93\mathrm{g}$ respectively; delaying Steel costs $867.01$, $391.04$, and $435.35\mathrm{g}$. However, forcing Gold on its first affordable morning while keeping baseline Copper/Steel dates reduces terminal cash by $15{,}060.73$, $12{,}821.56$, and $13{,}611.03\mathrm{g}$. Thus ``buy every upgrade immediately'' is contradicted by the results. A short horizon is another exception: the full-resource Spring optimum skips Steel.
+
+Under strict clearance of every entered floor, the $90$-energy case is deadlocked at its initial cash. At $134$ energy this deadlock disappears; the strict-clearance optimum retains Copper, Steel, and Zone 2 farming, earning $53{,}391.54\mathrm{g}$ by Day 112. One-day submission lockout also retains the same broad upgrade sequence across all three cases. These tests support robustness within the tested feasible variants, not a universal theorem for arbitrary constraints.
+
+Reproducible schedules, sensitivity results, and target certificates are exported by \texttt{XT0007\_resource\_share\_analysis.py}. An independent validator reconstructs unrounded daily resource consumption, revenue, cash, zone gates and upgrade feasibility from solver decisions. Informational cumulative ore columns are gross production already sold, not physical inventory available for a second use.
+
 \end{document}

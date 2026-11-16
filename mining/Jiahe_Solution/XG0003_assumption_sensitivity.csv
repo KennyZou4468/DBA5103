@@ -1,0 +1,7 @@
+Scenario,Assumption,Horizon,Optimal_Cash_g,Copper_Day,Steel_Day,Gold_Day,Max_Depth
+full,strict_clear_every_entered_floor,112,142047.30312000,15.00000000,27.00000000,,79
+full,one_day_submission_lockout,112,181543.29378000,14.00000000,24.00000000,,79
+one_third,strict_clear_every_entered_floor,112,166.66666667,,,,0
+one_third,one_day_submission_lockout,112,28517.57410567,36.00000000,76.00000000,,75
+minimum_floor,strict_clear_every_entered_floor,112,53391.54398667,27.00000000,48.00000000,,79
+minimum_floor,one_day_submission_lockout,112,82828.47998567,27.00000000,42.00000000,,79

@@ -15,6 +15,9 @@ def build_and_solve_full_year_mining_milp(
     lockout_days=2,
     allow_partial_last_floor=True,
     verbose=False,
+    resource_share=1.0,
+    upgrade_days=None,
+    daily_energy_budget=None,
 ):
     """
     Build and solve the Full-Year (T = 112 days) Standalone Mining MILP in Gurobi.
@@ -29,8 +32,26 @@ def build_and_solve_full_year_mining_milp(
     2. The exact telescoping linear identity for active pickaxe tiers p_{k,t} in terms
        of upgrade decisions u_{k,t}, keeping the 112-day Year 1 MILP at ~1,620 variables
        and ~1,850 constraints (well within the 2,000 Gurobi restricted license limit).
+
+    resource_share scales daily energy, daily time, and starting cash together.
+    upgrade_days optionally fixes a tier to a date (or prohibits it with None).
+    daily_energy_budget overrides energy alone, leaving scaled time/cash intact.
+    The supported horizon is Day 5 through Day 112; gems and containers use the
+    original all-generated-nodes-collected simplification of this compact model.
     """
+    # A share reserves this fraction of energy, time AND initial cash for mining.
+    # Other activities contribute no income to this standalone experiment.
+    if not 0.0 < resource_share <= 1.0:
+        raise ValueError("resource_share must be in (0, 1]")
+    if not isinstance(horizon_days, int) or not 5 <= horizon_days <= 112:
+        raise ValueError("horizon_days must be an integer from 5 through 112 (Year 1)")
     params = load_mining_parameters()
+    if daily_energy_budget is not None and not 0 < daily_energy_budget <= params["daily_energy_max"]:
+        raise ValueError("daily_energy_budget must be positive and at most the full daily energy")
+    for key in ("daily_energy_max", "daily_time_max", "initial_cash"):
+        params[key] *= resource_share
+    if daily_energy_budget is not None:
+        params["daily_energy_max"] = daily_energy_budget
     T = horizon_days
     open_day = params["mine_open_day"]
     active_days = list(range(open_day, T + 1))
@@ -98,6 +119,16 @@ def build_and_solve_full_year_mining_milp(
 
     # Tool upgrade binary variables u[k, t]
     u = model.addVars(upgrade_tiers, active_days, vtype=GRB.BINARY, name="u")
+    # Fix dates for counterfactual comparisons; None prohibits that upgrade.
+    # Bounds add no rows, preserving the restricted-license constraint budget.
+    for tier, day in (upgrade_days or {}).items():
+        if tier not in upgrade_tiers:
+            raise ValueError(f"Unknown upgrade tier: {tier}")
+        if day is not None and (not isinstance(day, int) or day not in active_days):
+            raise ValueError(f"Upgrade day must be within {open_day}..{T}, or None")
+        for t in active_days:
+            u[tier, t].UB = float(t == day)
+            u[tier, t].LB = float(t == day)
 
     # =========================================================================
     # 2. EXACT TELESCOPING PICKAXE TIER & CASH EXPRESSIONS
@@ -200,6 +231,18 @@ def build_and_solve_full_year_mining_milp(
             name="QuestDepth_Z3",
         )
 
+    # Exact time = 0.7 * energy + 1.4 * containers. Each zone permits four
+    # cleared levels, with at most one additional marginal level across zones.
+    # Omit time rows only when this bound proves them redundant.
+    max_containers = (
+        4 * sum(params["cont_cap_by_zone"].values())
+        + int(allow_partial_last_floor) * max(params["cont_cap_by_zone"].values())
+    )
+    time_is_redundant = (
+        0.7 * params["daily_energy_max"] + 1.4 * max_containers
+        <= params["daily_time_max"]
+    )
+
     M_energy = 600.0
     for t in active_days:
         # At most one marginal (uncleared) final level entered per day (XG0002 Item 2)
@@ -267,10 +310,6 @@ def build_and_solve_full_year_mining_milp(
                     r_marg[m, t] >= 1.0 * x_marg[m, t], name=f"MinMarg_{m}_{t}"
                 )
 
-        # Daily Energy (270) Budget conditioned on active pickaxe tier k
-        # Note (XG0002 Item 1): Since each swing takes 2.0 E and 1.4 min (0.7 min/E),
-        # and at most 5 entered levels yield c_t <= 58.5 containers (81.9 min),
-        # E_t <= 270(1 - w_t) strictly implies Time_t = 0.7 E_t + 1.4 c_t <= 270.9 <= 900(1 - w_t).
         for k in tiers:
             valid_zones = [
                 m for m in zones if params["zone_available"][(m, k)]
@@ -287,6 +326,25 @@ def build_and_solve_full_year_mining_milp(
                 + M_energy * (1.0 - p_expr[(k, t)] - w_expr[t]),
                 name=f"Energy_{k}_{t}",
             )
+            if not time_is_redundant:
+                containers = gp.quicksum(
+                    params["cont_cap_by_zone"][m] * (Z_clear[m, t] + x_marg[m, t])
+                    for m in zones
+                )
+                # Upper bound across all zone variables for an inactive tier.
+                max_tier_energy = sum(
+                    params["rock_swings"][(m, k)] * 2.0
+                    * (4 * params["req_rocks_by_zone"][m] + params["max_rocks_by_zone"][m])
+                    + 5 * gem_energy_per_level[(m, k)]
+                    for m in valid_zones
+                )
+                time_big_m = 0.7 * max_tier_energy + 1.4 * max_containers
+                model.addConstr(
+                    0.7 * e_day + 1.4 * containers
+                    <= params["daily_time_max"] * (1.0 - w_expr[t])
+                    + time_big_m * (1.0 - p_expr[(k, t)] - w_expr[t]),
+                    name=f"Time_{k}_{t}",
+                )
 
         # Solvency constraint on EVERY active day t (XG0002 Item 3)
         model.addConstr(cash_expr[t] >= 0.0, name=f"Solvency_{t}")
