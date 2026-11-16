@@ -2,6 +2,13 @@
 
 Updated: 2026-11-16. Scope: standalone mining; deterministic expected yields; no farming/fishing income or transfers; no food; cash-equivalent upgrades. Results below use integer ordinary rocks, an optional partial final floor, two-day upgrade lockout, and no mandatory Floor 120 unless stated.
 
+
+## Priority finding from the categorized constraint audit
+
+**OPEN C03 — compact cross-zone ordering:** `OneMarg` limits the number of marginal floors but does not ensure that this floor is in the deepest visited zone. A forced T=28 Day-21 solution is solver-feasible with Zone 1 clears=2, Zone 1 marginal entry=1 and marginal rocks=8, plus Zone 2 clears=1; objective 11,079.592236g. This conflicts with the intended single continuous descent interpretation. The three selected annual baseline solutions did not exhibit this pattern in an additional raw-variable check, but a feasible counterexample disproves a general route-equivalence claim. Repair the ordering constraints and rerun before global integration or claiming full model/specification equivalence. No solver code was changed in this documentation task.
+
+The Kami report now includes pages 4-8 with a constraint checklist, source/units dictionary for all 25 loaded parameter keys and 10 solver controls, the seven decision-variable families (1,620 annual variables), and a separation of expressions and CSV outputs. See `XG0004_mining_comparison/XG0004_mining_comparison.pdf`.
+
 ## Reproduce and inspect
 
 Run from the repository root:
@@ -118,7 +125,7 @@ Requiring full clearance on every entered floor makes the one-third case a deadl
 ## Constraint audit status
 
 1. **Time:** XT0005 includes explicit daily energy/time coupling. XT0006 omits time rows only when a valid bound proves redundancy. At most four cleared Zone 2 floors plus one marginal floor yield at most 54 containers; time is 0.7 × energy + 1.4 × containers. Bounds are 264.6 ≤ 900 minutes full and 138.6 ≤ 300 minutes one-third. For smaller shares where redundancy is not established, XT0006 adds explicit tier-conditioned time rows. The runner independently recomputes actual time.
-2. **One uncleared final floor:** enforced by `OneMarg`. The player has one descending mine run/day, avoiding repeated zero-energy resets to collect containers. This remains a modeling assumption.
+2. **One uncleared final floor:** the count is enforced by `OneMarg`; cross-zone position is not fully enforced (OPEN C03 above). The player has one descending mine run/day, avoiding repeated zero-energy resets to collect containers. This remains a modeling assumption.
 3. **Cash ≥ 0:** enforced every active day. Under two-day submission lockout there is no mining revenue on upgrade days, so end-of-day solvency also ensures start-of-day affordability.
 4. **Floor 120:** the optional quest requires 39 Zone 1, 40 Zone 2 and 40 Zone 3 clears. The prior off-by-one issue is corrected.
 5. **Integer rocks:** enabled for all new comparisons. Expected gem counts, containers and resource yields remain fractional by design. XT0006 retains the existing compact-model simplification of collecting all generated gems/containers on entered floors; it is not a universal replacement for a model with independently optional node collection.

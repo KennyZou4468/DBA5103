@@ -3,13 +3,13 @@
   "lang": "en",
   "brief": {
     "audience": "DBA5103 mining teammates and project assessor",
-    "job": "Compare three mining-only resource budgets and explain the robust strategy and its limits.",
+    "job": "Compare the three mining cases and provide a constraint-first, code-mapped audit dictionary.",
     "template": "long-doc-en",
     "formats": [
       "html",
       "pdf"
     ],
-    "page_target": 3,
+    "page_target": 8,
     "narrative": "Comparison first, mechanism and schedules second, strategy evidence and limitations third.",
     "required_facts": [
       "270 / 90 / 134 energy",
@@ -21,23 +21,26 @@
     ],
     "required_assets": [],
     "acceptance_checks": [
-      "Exactly three A4 pages",
-      "All three budgets compared explicitly",
-      "One-sentence strategy with finite-horizon caveat",
-      "All numeric claims reconcile to analysis CSVs",
-      "Every page visually inspected; no overflow or isolated headings"
+      "Eight readable A4 pages: comparison plus five audit reference pages",
+      "All parameter dictionary keys and public solver controls categorized",
+      "All seven compact solver variable families have domains and annual counts",
+      "Decision variables, fixed coefficients, expressions and CSV outputs distinguished",
+      "Constraint names, review questions and the open cross-zone ordering gap recorded",
+      "Comparison values unchanged; every final page visually inspected"
     ],
     "preserve": [
       "Original baseline CSVs",
-      "Existing model and analysis outputs"
+      "Existing model and analysis outputs",
+      "Comparison numerical results",
+      "Solver source and analysis CSVs"
     ],
     "explicit_deviations": [
-      "Condensed three-page long-doc; cover, navigation and executive summary combined into the first body page instead of separate front matter."
+      "Comparison front matter remains condensed on page 1; audit reference uses one topic per page."
     ]
   },
   "content": {
     "title": "Mining strategy under three resource budgets",
-    "subtitle": "Standalone mining comparison | Year 1, integer ordinary rocks",
+    "subtitle": "Three-case comparison | Constraint audit reference: pages 4-8",
     "author": "Jiahe | DBA5103 Mining Module",
     "date": "16 November 2026",
     "summary": {
@@ -77,6 +80,353 @@
           "In all three Year 1 plans, Copper and Steel are submitted on their first affordable morning. Delaying one purchase by a day lowers cash after reoptimization; these tests do not prove that every later date is worse.",
           "Gold lowers cash when forced on its first affordable morning. The short-horizon exception also matters: the full-resource Day-28 optimum skips Steel, and both constrained Day-28 plans buy no upgrades.",
           "Strict full clearance deadlocks Case B at 166.67g. Case C stays feasible: Copper on Day 27, Steel on Day 48, and 53,391.54g at Day 112. One-day submission lockout also preserves Copper, Steel and Zone 2 in all cases. These are tested patterns, not a universal theorem."
+        ]
+      },
+      {
+        "title": "Start with the constraint checklist",
+        "claim": "Check the coded constraints against the agreed rules. Solver optimality is not a certificate that the game has been modeled correctly.",
+        "paragraphs": [
+          "Scope: XT0006 is the compact Year 1 model behind this report; XT0005 supplies data and an explicit Spring formulation. See page 8 for the variable crosswalk.",
+          "OPEN C03: at T=28, forced Day 21 allows Zone 1 clears=2, marginal entry=1 and marginal rocks=8, plus Zone 2 clears=1 (11,079.59g). OneMarg does not prevent an uncleared shallower floor before a deeper clear. Repair and rerun before claiming full route equivalence. The three selected annual plans did not show this pattern."
+        ],
+        "tables": [
+          {
+            "title": "Constraint review checklist",
+            "headers": [
+              "ID / category",
+              "Rule and audit question",
+              "Code pointer in XT0006"
+            ],
+            "rows": [
+              [
+                "C01 · Calendar / domains",
+                "Decisions only on Days 5 to T; check integrality and bounds.",
+                "active_days; addVars bounds"
+              ],
+              [
+                "C02 · Floor accounting",
+                "Each clear costs 33/29/33 rocks. Marginal rocks require entry.",
+                "Z_clear; MaxMarg_*; MinMarg_* (optional)"
+              ],
+              [
+                "C03 · Continuous descent",
+                "At most one marginal floor, in the deepest visited zone. Cross-zone order is OPEN.",
+                "OneMarg_*; StrictTransZ1_*; StrictTransZ2_* (quest only)"
+              ],
+              [
+                "C04 · Zone access",
+                "Zone 2: Copper+ and 39 new Zone 1 clears. Zone 3: Gold and 40 Zone 2 clears.",
+                "VisitZ2/3_*; ToolZ2/3_*; DepthZ2/3_*"
+              ],
+              [
+                "C05 · Upgrade sequence",
+                "Copper then Steel then Gold; each at most once; no service overlap.",
+                "OneUpg_Copper; OrderUpg_*; Timing_*"
+              ],
+              [
+                "C06 · Tool downtime",
+                "No mining on submission day or next day; new tool on day +2.",
+                "w_expr; p_expr; Y_*; W_*"
+              ],
+              [
+                "C07 · Daily energy",
+                "Charge every rock/gem swing using the active tool and case budget.",
+                "Energy_*; e_day; M_energy"
+              ],
+              [
+                "C08 · Daily time",
+                "1.4 minutes per swing or container. Omit rows only if proven redundant.",
+                "Time_* (conditional); time_is_redundant"
+              ],
+              [
+                "C09 · Cash balance",
+                "Initial cash + revenue - full upgrade costs; balance never negative.",
+                "cash_expr; rev_expr; upg_expr; Solvency_*"
+              ],
+              [
+                "C10 · Depth quest",
+                "Zone 1 cap always 39; optional quest needs 39/40/40 clears.",
+                "MaxDepth_Z1; QuestDepth_Z1/2/3"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Separate budgets, rules and run settings",
+        "claim": "These inputs are fixed before solving. Distinguish game data, scenario choices and numerical controls when checking a constraint.",
+        "paragraphs": [
+          "Units: gold coins (g), game minutes, energy, rocks and floors. Initial cash is unrounded internally; sharing resources does not reduce prices or upgrade costs.",
+          "Caps 4/5 and M_energy=600 need rechecking if energy rises or food is added. Base T=112 has 1842 rows; MinMarg adds 324 and Time adds 432, potentially exceeding the 2000-row license."
+        ],
+        "tables": [
+          {
+            "title": "Scalar inputs and run controls",
+            "headers": [
+              "Code names / category",
+              "Value and audit meaning"
+            ],
+            "rows": [
+              [
+                "horizon_days; mine_open_day",
+                "Calendar: T=112 or 28; opening Day 5. T is a run setting; opening comes from S1."
+              ],
+              [
+                "initial_cash; daily_energy_max; daily_time_max",
+                "Budgets: base 500g, 270 energy, 900 minutes (S1), before share scaling."
+              ],
+              [
+                "resource_share; daily_energy_budget",
+                "Cases A/B: shares 1 / one third. C: one-third share, energy override 134; time and cash stay one third."
+              ],
+              [
+                "energy_per_swing; minutes_per_swing; minutes_per_container",
+                "Physics: 2 energy per swing; 1.4 minutes per swing or container. Loader constants; compare S6/S8."
+              ],
+              [
+                "cash_expr[T]; TARGET",
+                "Objective: maximize terminal cash. XT0007 horizon search uses TARGET=100000; not a daily solver constraint."
+              ],
+              [
+                "allow_partial_last_floor; integer_rocks",
+                "Report: True / True. Solver default integer_rocks=False; the analysis runner enables it."
+              ],
+              [
+                "require_depth_120; min_one_rock_per_entered_level",
+                "Both False in the base cases; switch on a depth quest or minimum marginal-rock rule."
+              ],
+              [
+                "lockout_days; upgrade_days",
+                "Baseline 2-day lockout. upgrade_days=None leaves dates free; dictionary values fix dates or prohibit a tier with None."
+              ],
+              [
+                "M_energy; 4 / 5 caps; verbose; MIPGap; TOLERANCE",
+                "Numerics: M=600; 4 clears/zone and 5 entries/zone; verbose=False; MIPGap=0; validation tolerance=0.00001."
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Trace profile inputs to their sources",
+        "claim": "Revenue and resource use depend on the same capacities, hit requirements and prices. Check their source arithmetic before interpreting the solution.",
+        "paragraphs": [
+          "Historical names: mine_1_40 covers floors 1-39; mine_41_80 covers 40-79; mine_81_120 covers 80-120. Do not infer boundaries from these identifiers.",
+          "Compact model: collect all expected gems and containers on entered floors. XT0005 allows optional collection; agree which rule to use before integration."
+        ],
+        "tables": [
+          {
+            "title": "Profile inputs and derived coefficients",
+            "headers": [
+              "Code names",
+              "Meaning / source"
+            ],
+            "rows": [
+              [
+                "zones; tiers; upgrade_tiers; gems",
+                "Sets: t=day, m=3 zones, k=4 tools, j=7 gems. Upgrade tiers exclude Basic; gem list from S4."
+              ],
+              [
+                "req_rocks_by_zone; max_rocks_by_zone",
+                "Clearance 33/29/33 (S2). Hard-coded rock caps 65.3/56.1/65.2; reconcile with S2."
+              ],
+              [
+                "zone_max_floors",
+                "Loader values 39/40/41; not read by XT0006. Compact quest uses 39/40/40; audit ladder indexing."
+              ],
+              [
+                "rock_drops_by_zone; rock_value_by_zone",
+                "Expected drops (S2). Cash/rock is derived from all drops and S7 prices; only four resources are tracked as gross output."
+              ],
+              [
+                "gem_cap; gem_price",
+                "Expected nodes per floor by zone/gem, and gold per gem (S4). Fractional expected counts are intentional."
+              ],
+              [
+                "rock_swings; gem_swings; zone_available",
+                "Hits per rock/tool and access (S3); hits per gem/tool (S5). Unavailable rock/tool pairs have no hit coefficient."
+              ],
+              [
+                "cont_cap_by_zone; cont_val_by_zone",
+                "0/10.8/0 containers per floor and gold per container (S6). Collection uses time, not energy."
+              ],
+              [
+                "upgrade_cost; blacksmith_fee",
+                "Total costs 2300/5600/11250g (S8). blacksmith_fee is loaded but not added again."
+              ],
+              [
+                "gem_cash_per_level; gem_count_per_level; gem_energy_per_level; gem_time_per_level",
+                "Fixed expected sums derived from gem capacities, prices and swing costs; not decisions."
+              ]
+            ]
+          }
+        ],
+        "sources": [
+          "Locations: S1 in shared/data; S2-S8 in mining/data.",
+          "S1 global_parameters.csv; S2 mining_node_profiles.csv",
+          "S3 mining_ordinary_rock_hit_requirements.csv; S4 mining_gem_node_profiles.csv",
+          "S5 mining_gem_hit_requirements.csv; S6 mine_container_profiles.csv",
+          "S7 mining_resource_cash_values.csv; S8 mining_pickaxe_catalog.csv"
+        ]
+      },
+      {
+        "title": "Distinguish decisions from expressions",
+        "claim": "Year 1 has 108 active days and 15 scalar decisions per day: 1620 columns, comprising 864 binary and 756 general integer variables in the report.",
+        "paragraphs": [
+          "Counts refer to XT0006 with integer_rocks=True. No decisions exist before Day 5; fixing upgrade dates changes bounds, not column counts. Counts were checked from Gurobi.",
+          "Expressions reuse decisions without adding columns. p_expr is a tool state; p_push_z1 is a progression decision; params is the fixed input dictionary. These names represent different objects."
+        ],
+        "tables": [
+          {
+            "title": "Actual XT0006 solver variables",
+            "headers": [
+              "Family",
+              "Domain",
+              "Count",
+              "Decision meaning"
+            ],
+            "rows": [
+              [
+                "Z_clear[m,t]",
+                "Integer 0 to 4",
+                "324",
+                "Floors cleared in each zone/day, including refarming."
+              ],
+              [
+                "x_marg[m,t]",
+                "Binary",
+                "324",
+                "Enter an additional marginal floor in that zone/day."
+              ],
+              [
+                "r_marg[m,t]",
+                "Nonnegative integer",
+                "324",
+                "Marginal rocks, bounded by rock cap and entry; continuous if integer_rocks=False."
+              ],
+              [
+                "p_push_z1[t]",
+                "Integer 0 to 4",
+                "108",
+                "New Zone 1 clears, bounded by Zone 1 Z_clear."
+              ],
+              [
+                "v_z2[t]",
+                "Binary",
+                "108",
+                "Zone 2 gate: zero forbids entry; one need not imply a visit."
+              ],
+              [
+                "v_z3[t]",
+                "Binary",
+                "108",
+                "Zone 3 gate with the same one-way meaning."
+              ],
+              [
+                "u[k,t]",
+                "Binary",
+                "324",
+                "Submit a Copper, Steel or Gold upgrade on day t."
+              ]
+            ]
+          },
+          {
+            "title": "Calculated expressions and helper quantities",
+            "headers": [
+              "Code name",
+              "Role; not an independent decision"
+            ],
+            "rows": [
+              [
+                "p_expr; w_expr; Y_*; W_*",
+                "Active tool, downtime and completed/submitted upgrade states derived from u."
+              ],
+              [
+                "rev_expr; upg_expr; cash_expr",
+                "Revenue, upgrade expense and cash. Cash is not a new solver variable."
+              ],
+              [
+                "cum_d1_curr; cum_d2_prev; cum_d2_curr",
+                "Cumulative access proxies. Zone 2 sums all clears; no separate p_push_z2."
+              ],
+              [
+                "e_day; containers; max_containers; time_is_redundant",
+                "Resource expressions and a fixed redundancy test; local e_day is not an E_day variable."
+              ],
+              [
+                "sum_u_*; day_u_*; time_big_m",
+                "Upgrade sums/dates are expressions; time_big_m is a numerical coefficient."
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Keep CSV outputs out of the decision list",
+        "claim": "CSV columns describe a solved plan. Treating outputs as fresh decisions or inventory can double-count cash, material and state during integration.",
+        "paragraphs": [
+          "Confirm partial floors, mandatory gem collection, upgrade timing, cash-equivalent costs and C03 ordering. Before aggregation, filter Scenario, Objective and Horizon.",
+          "Integration needs one shared cash balance and energy/time budgets, with agreed transaction timing. If physical materials are introduced, replace immediate sales consistently; never spend gross Cum_* production twice."
+        ],
+        "tables": [
+          {
+            "title": "Daily output columns by purpose",
+            "headers": [
+              "Category",
+              "CSV fields and interpretation"
+            ],
+            "rows": [
+              [
+                "Calendar / run",
+                "Day; Season_Day; Scenario; Objective; Horizon"
+              ],
+              [
+                "Tool / visits",
+                "Pickaxe; Upgrade; Zones_Visited"
+              ],
+              [
+                "Floors / rocks",
+                "Lvls_Entered; Lvls_Cleared; Cleared_Rocks; Marginal_Rocks; Total_Rocks"
+              ],
+              [
+                "Harvest / use",
+                "Gems; Containers; Energy; Time_Min\nExpected harvest and resource use; check unrounded values, not just CSV rounding."
+              ],
+              [
+                "Depth / cash",
+                "Depth; Revenue_g; UpgCost_g; Cash_End_g\nDepth is capped post-processing; cash comes from cash_expr."
+              ],
+              [
+                "Gross production",
+                "Cum_Copper_Ore; Cum_Iron_Ore; Cum_Gold_Ore; Cum_Coal\nAlready sold for cash; not retained physical inventory."
+              ]
+            ]
+          },
+          {
+            "title": "Do not mix the XT0005 and XT0006 dictionaries",
+            "headers": [
+              "XT0005 explicit variables",
+              "XT0006 compact representation"
+            ],
+            "rows": [
+              [
+                "x[l,m,t]; z[l,m,t]; r[l,m,t]",
+                "Z_clear, x_marg, r_marg. Equal Spring objectives do not prove route equivalence."
+              ],
+              [
+                "p[k,t]; w[t]; Cash[t]; E_day[t]",
+                "Expressions or reconstructed totals; not additional state variables."
+              ],
+              [
+                "g[j,t]; c[t]",
+                "Fixed expected harvest per floor; no independent collection decisions."
+              ],
+              [
+                "p_push[m,t]",
+                "Only p_push_z1 is explicit; Zone 2/3 reporting uses cumulative clears and caps."
+              ]
+            ]
+          }
         ]
       }
     ],
