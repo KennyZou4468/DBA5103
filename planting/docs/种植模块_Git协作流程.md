@@ -1,119 +1,121 @@
-# 种植模块 Git 协作流程
+# 种植模块 Git 协作流程（简化版）
 
-本指南适用于仓库 `DBA5103` 的种植模块。目标是避免多人直接在 `main` 修改，减少反复 pull／push 产生的覆盖和冲突。
+本项目采用最简单的规则：**每位成员只在自己的分支修改；所有稳定改动通过 GitHub Pull Request 合并到 `main`。**
 
-## 1. 分支规则
+## 1. 团队约定
 
-- `main`：只保留可运行、已确认的版本；不直接开发。
-- `feature/planting`：种植模块的长期集成分支。
-- `feature/planting-*`：多人并行时的个人或子任务分支，例如 `feature/planting-solver`、`feature/planting-results`、`feature/planting-docs`。
-- 种植相关变更只应修改 `planting/` 下的文件；共享数据或全局文档的改动需在 Pull Request 中明确说明。
+- `main` 是稳定版本，任何人不要直接在 `main` 修改或直接 push。
+- 每位成员使用一个长期个人分支。例如：
 
-## 2. 首次建立种植模块分支
+  | 成员 | 分支示例 |
+  | --- | --- |
+  | Kaiyun | `planting-kaiyun` |
+  | 同事 Alice | `planting-alice` |
 
-在项目目录执行：
+- 每个人主要修改自己负责的文件。
+- 同一时段不要由两个人编辑同一个 `.ipynb` notebook。
+- 是否将某人的改动合并到 `main`，统一在 GitHub 网页通过 Pull Request 决定。
+
+## 2. 第一次建立个人分支
+
+在项目目录执行一次：
 
 ```bash
 cd /Users/zoukaiyun/NUS/DBA5103/ProjectImplementation
 
 git switch main
-git pull --ff-only origin main
-git switch -c feature/planting
-git push -u origin feature/planting
+git pull origin main
+git switch -c planting-kaiyun
+git push -u origin planting-kaiyun
 ```
 
-之后，种植模块的日常修改均在 `feature/planting` 或其子分支进行，而不是直接在 `main` 进行。
+同事只需把最后两行中的 `planting-kaiyun` 换成自己的分支名，例如 `planting-alice`。
 
-## 3. 单人负责种植模块时的日常流程
+## 3. 日常修改与提交
 
-每次开始工作前，先将最新主分支合入种植分支：
+每次工作时，只需使用自己的分支：
 
 ```bash
-git switch feature/planting
-git fetch origin
-git merge origin/main
+git switch planting-kaiyun
 ```
 
-完成一项小而完整的改动后提交：
+修改种植模块文件后，依次执行：
 
 ```bash
-git status
 git add planting/
-git commit -m "Add planting daily decision export"
+git commit -m "Update planting model"
 git push
 ```
 
-提交信息应描述实际改动，例如 `Fix planting event parsing`、`Document planting tool constraints`，避免使用无含义的 `update`。
+这三条命令分别表示：
 
-## 4. 多人同时负责种植模块时的流程
+1. `git add planting/`：选择本次要保存的种植模块改动；
+2. `git commit -m "..."`：在本地保存一个带说明的版本；
+3. `git push`：把自己的版本上传到 GitHub 上的个人分支。
 
-每位成员从最新 `feature/planting` 创建自己的任务分支：
-
-```bash
-git switch feature/planting
-git pull --ff-only origin feature/planting
-git switch -c feature/planting-solver
-git push -u origin feature/planting-solver
-```
-
-个人任务完成后：
-
-1. 将 `feature/planting` 的最新改动合入个人分支：
-
-   ```bash
-   git fetch origin
-   git merge origin/feature/planting
-   ```
-
-2. 处理自己分支中的冲突、运行相关验证。
-3. 在 GitHub 创建 Pull Request：`feature/planting-solver` → `feature/planting`。
-4. 由种植模块负责人审阅并合并。
-
-只有已经集成和验证过的 `feature/planting` 才通过 Pull Request 合并至 `main`。
-
-## 5. 合并到主分支
-
-当种植模块达到一个可运行的阶段，在 GitHub 创建 Pull Request：
+常用提交说明示例：
 
 ```text
-base: main
-compare: feature/planting
+Add planting cash constraints
+Fix planting daily-event parsing
+Update planting documentation
+Improve planting result chart
 ```
 
-Pull Request 描述至少应说明：
+## 4. 合并到 main：只在 GitHub 网页操作
 
-- 修改了哪些种植数据、文档、代码或 notebook；
-- 使用了哪些输入文件；
-- 是否运行了 Gurobi 求解、数据校验或其他测试；
-- 是否改变了模型假设、变量或约束。
+当一段工作完成并且 notebook 可以运行时：
 
-合并完成后，每位成员在下一次工作前执行第 3 节的同步步骤。
+1. 打开 GitHub 仓库；
+2. 点击 **Compare & pull request**；
+3. 确认方向为：
 
-## 6. Notebook 的特殊规则
+   ```text
+   base: main
+   compare: planting-kaiyun
+   ```
 
-`planting/notebooks/planting_gurobi_milp.ipynb` 容易因 cell 输出、执行编号和自动生成的 cell ID 产生无意义的 Git 差异。
+4. 在 PR 描述中写清楚改了什么、是否运行了 Gurobi；
+5. 由另一位同学简单检查后，点击 **Merge pull request**。
 
-- 同一时段最好只由一位成员编辑同一个 notebook。
-- 提交前清除临时输出，避免将大段求解日志、调试表格或缓存写入 Git。
-- 运行后的结果应写入 `planting/outputs/`，不要把每次试验结果都提交为代码变更。
-- 后续较稳定的 Gurobi 模型逻辑建议迁移到 `planting/src/` 下的 `.py` 文件；notebook 只负责运行、说明和可视化。
+合并后，`main` 就成为包含这次改动的稳定版本。
 
-## 7. 冲突处理原则
+## 5. 两个人同时修改的例子
 
-- 先执行 `git status`，确认本地修改的文件。
-- 只解决自己负责文件中的冲突；若冲突涉及他人模块或共享数据，应联系对应负责人共同处理。
-- 不使用 `git push --force` 覆盖远端共享分支。
-- 不使用 `git reset --hard` 清除未确认的本地工作。
-- 合并后运行种植模块的 notebook 或相关数据验证，再继续提交。
+假设：
 
-## 8. GitHub 主分支保护建议
+- Kaiyun 修改 `planting/notebooks/planting_gurobi_milp.ipynb`；
+- Alice 修改 `planting/docs/` 下的文档。
 
-仓库管理员应在 GitHub 为 `main` 建立 branch protection / ruleset：
+两个人各自在自己的分支执行“修改 → add → commit → push”。随后各自向 `main` 发 PR。
 
-1. 要求通过 Pull Request 合并；
-2. 至少需要一位成员 review；
-3. 合并前要求分支已同步最新 `main`；
-4. 禁止 force push；
-5. 如有自动校验，要求校验通过后才可合并。
+因为修改的是不同文件，GitHub 通常会自动合并。此时不需要双方反复 pull，也不需要手动合并彼此的分支。
 
-这些规则使 `main` 始终是团队可共同拉取的稳定版本。
+## 6. Notebook 特别规则
+
+- 同一个 notebook 不要被两个人同时编辑。
+- notebook 运行时产生的大段 Gurobi 日志、临时表格和图像不应作为无意义差异频繁提交。
+- 结果文件应放在 `planting/outputs/`；只有老师要求的最终结果才提交。
+- 如果 GitHub 提示 notebook 冲突，先停止双方继续修改，再共同确认保留哪一版的代码内容。
+
+## 7. 什么时候才需要额外处理
+
+只有 GitHub 明确提示 PR 有 conflict 或分支落后于 `main` 时，才需要处理同步或冲突。不要自行使用：
+
+```bash
+git push --force
+git reset --hard
+```
+
+遇到冲突时，保留提示页面或终端信息，再由负责该文件的成员一起处理。
+
+## 8. GitHub 设置建议
+
+仓库管理员可为 `main` 开启保护规则：
+
+- 禁止直接 push 到 `main`；
+- 要求通过 Pull Request 合并；
+- 要求至少一位成员 review；
+- 禁止 force push。
+
+这样即使有人误操作，也不会覆盖团队已经确认的版本。
