@@ -1,0 +1,19 @@
+{
+  "scenario": "one_third_resources",
+  "horizon_days": 112,
+  "resource_share": 0.3333333333333333,
+  "initial_cash_g": 166.66666666666666,
+  "daily_energy_limit": 90.0,
+  "daily_time_limit_game_minutes": 300.0,
+  "terminal_cash_g": 26946.02,
+  "max_energy_used": 89.99,
+  "max_time_used_game_minutes": 92.19,
+  "max_depth": 73,
+  "upgrade_days": {
+    "Copper": 36,
+    "Steel": 77
+  },
+  "first_zone_2_day": 76,
+  "variables": 1620,
+  "constraints": 1842
+}

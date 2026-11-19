@@ -5,9 +5,11 @@
 | Notebook | 方案 | 目的 |
 | --- | --- | --- |
 | `benchmark.ipynb` | 固定平均分配 | 计算资源不能跨模块调配时的基准表现。 |
-| `FullVersion.ipynb` | 全局联立优化 | 让模型在模块之间自由分配资源，计算最大可能日末现金。 |
+| `FullVersion.ipynb` | 全局联立优化 | 在一个 Gurobi 模型中联立 planting、mining、fishing，并自由分配共享资源。 |
 
-当前有效模块为 `planting` 和 `mining`；`fishing` 完成后加入 `ACTIVE_MODULES` 即可。不得把模块数写死为 2 或 3。
+当前有效模块为 `planting`、`mining` 和 `fishing`。`FullVersion.ipynb` 调用
+`full_version_solver.py`，由三个 adapter 将内部变量与约束加入**同一个** Gurobi
+`Model`；它不是把三个独立解相加。
 
 ## 1. 已确认的统一口径
 
@@ -41,7 +43,7 @@ Benchmark 的比较值为：
 BenchmarkCash=\sum_{m\in\mathcal M}B^m_{112}.
 \]
 
-因此，当前两模块时每个模块有 250g、每天 450 分钟、135 体力；加入 fishing 后自动变为每模块 \(500/3\)g、300 分钟、90 体力。
+因此，三个模块时每个模块在 benchmark 中各有 \(500/3\)g、每天 300 分钟、90 体力。
 
 ## 3. FullVersion 定义：共享资源、自由分配
 
@@ -65,14 +67,18 @@ B_t=B_{t-1}-\sum_{m\in\mathcal M}Expense^m_t
 \max B_{112}.
 \]
 
-若各模块都有黑匠升级决策，FullVersion 还应增加全局每日送修容量：
+FullVersion 对黑匠增加全局容量：同一天最多交付一把升级工具，且同一服务日
+最多有一把工具不在手上。fishing 竿属于商店购买，不占黑匠容量：
 
 \[
 \sum_{m\in\mathcal M}\sum_k U^m_{k,t}\le1,
 \qquad \forall t.
 \]
 
-这条约束只在各 adapter 明确导出升级交付变量后启用。
+\[
+\sum_{m\in\mathcal M}D^m_t\le1,
+\qquad \forall t.
+\]
 
 ## 4. Adapter 接口：实现前必须遵守
 
@@ -87,11 +93,25 @@ B_t=B_{t-1}-\sum_{m\in\mathcal M}Expense^m_t
 
 `module_contract.py` 定义了 `ModuleFlows` 和共享约束构建函数。planting、mining、fishing 的 adapter 都必须遵循此接口。
 
-## 5. 实现顺序
+## 5. 当前实现
 
-1. 将 planting notebook 的建模部分提取为 `add_planting_module(...)` adapter；保留作物生命周期和工具内部约束，输出四类日度流量。
-2. 将 mining 独立求解器提取为 `add_mining_module(...)` adapter；保留矿区、升级、日度行动约束，输出四类日度流量。
-3. 在 `benchmark.ipynb` 用独立模块现金和固定平均时间／体力上限运行两个 adapter。
-4. 在 `FullVersion.ipynb` 用一个 Gurobi Model、共享现金和共享时间／体力运行两个 adapter。
-5. 用同一组数据输出 `benchmark_cash`、`full_version_cash` 和二者差额。
-6. fishing 完成后新增 `add_fishing_module(...)`，无需重写公共现金或资源约束。
+1. `adapters/planting_adapter.py`：保留作物生命周期和锄头／水壶升级约束，输出种植日度流量。
+2. `adapters/mining_adapter.py`：保留矿区、镐子升级、开矿日和日度采矿约束，输出采矿日度流量。
+3. `adapters/fishing_adapter.py`：保留可行钓鱼活动、鱼竿购买、诱饵／配件约束，输出钓鱼日度流量。
+4. `full_version_solver.py`：添加唯一现金路径、共享时间／体力和铁匠容量，并导出报告。
+
+## 6. FullVersion 输出
+
+运行 `FullVersion.ipynb` 后，结果写入 `outputs/full_version/`：
+
+- `integrated_daily_decisions.csv`：112 天逐日的三模块行动、收入、支出、资源使用及共享现金；
+- `integrated_planting_daily_decisions.csv`、`integrated_mining_daily_decisions.csv`、`integrated_fishing_daily_decisions.csv`：按模块拆分的逐日决策、资源使用、每日及累计净现金流；
+- `integrated_total_cash_flow.csv`：按模块及 overall 汇总的收入、支出、净现金流、初始及期末现金；
+- `integrated_planting_batches.csv`：种植批次明细；
+- `integrated_fishing_activities.csv`：钓鱼活动明细；
+- `integrated_cash_balance.png`：共享日末现金曲线；
+- `integrated_planting_profit_flow.png`、`integrated_mining_profit_flow.png`、`integrated_fishing_profit_flow.png`：各模块单独的每日与累计净现金流图；
+- `summary.json`：目标值、MIP gap、资源峰值和各模块累计收入／支出。
+
+若 Gurobi 因设置的 `TimeLimit` 停止，`summary.json` 的 `status=9` 表示保留了可行解；此时
+`mip_gap` 必须随结果一起报告，不能称该解为已证明最优。

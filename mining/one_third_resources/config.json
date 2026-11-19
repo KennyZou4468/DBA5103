@@ -1,0 +1,17 @@
+{
+  "scenario": "one_third_resources",
+  "horizon_days": 112,
+  "resource_share": 0.3333333333333333,
+  "integer_rocks": true,
+  "objective": "maximize_terminal_cash",
+  "resource_definition": {
+    "daily_time_game_minutes": 300,
+    "daily_energy": 90,
+    "initial_cash_g": 166.66666666666666
+  },
+  "notes": [
+    "Time, energy, and initial cash are all one third of the shared baseline.",
+    "This is a standalone mining benchmark; cash cannot be transferred from planting or fishing.",
+    "The active mining model's documented C03 ordering limitation remains applicable."
+  ]
+}
