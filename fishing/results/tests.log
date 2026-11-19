@@ -1,0 +1,14 @@
+test_all_warm_starts_feasible_and_audit_detects_corruption (test_fishing.FishingTests.test_all_warm_starts_feasible_and_audit_detects_corruption) ... ok
+test_day_one_matches_exhaustive_enumeration (test_fishing.FishingTests.test_day_one_matches_exhaustive_enumeration) ... Running HiGHS 1.16.0 (git hash: f3f113d): Copyright (c) 2026 under MIT licence terms
+Includes third-party software components, see THIRD_PARTY_NOTICES.md for full details
+ok
+test_exact_projection_thresholds (test_fishing.FishingTests.test_exact_projection_thresholds) ... ok
+test_invalid_config_rejected (test_fishing.FishingTests.test_invalid_config_rejected) ... ok
+test_iridium_without_fiberglass_can_use_bait (test_fishing.FishingTests.test_iridium_without_fiberglass_can_use_bait) ... ok
+test_opening_cash_blocks_same_day_financing (test_fishing.FishingTests.test_opening_cash_blocks_same_day_financing) ... ok
+test_pruning_preserves_two_day_optimum (test_fishing.FishingTests.test_pruning_preserves_two_day_optimum) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.114s
+
+OK

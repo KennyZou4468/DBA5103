@@ -1,0 +1,13 @@
+{
+  "backend": "HiGHS",
+  "version": "1.16.0",
+  "status": "Optimal",
+  "objective": 312294.3420684875,
+  "best_bound": 312294.3420684875,
+  "mip_gap": null,
+  "nodes": -1,
+  "solve_seconds": 0.16304225000021688,
+  "variables": 18514,
+  "constraints": 3250,
+  "relaxation": true
+}
