@@ -9,7 +9,7 @@ This folder contains the planting component of the DBA5103 Stardew Valley optimi
 | `data/` | Input data used by the planting model. | Crop economics and growth information, daily crop-event coefficients, planting feasibility calendar, harvest schedule, and the authoritative tool catalogue. |
 | `docs/` | Model documentation and agreed assumptions. | The approved formulation, data guide, standalone-optimization notes, and tool/resource state modelling notes. |
 | `notebooks/` | Executable optimization implementation. | `planting_gurobi_milp.ipynb`, which reads the CSV inputs, builds the Gurobi MILP, solves it, audits the solution, and exports outputs. |
-| `outputs/` | Generated results; do not edit these manually. | Daily decisions, planting batches, and the daily cash-balance chart from the latest notebook run. |
+| `outputs/` | Generated results; do not edit these manually. | Scenario-specific folders containing daily decisions, planting batches, and a daily cash-balance chart. |
 
 ## File guide
 
@@ -34,9 +34,16 @@ Run `planting_gurobi_milp.ipynb` from top to bottom.  It requires a working Guro
 
 ### `outputs/`
 
-- `daily_decisions.csv`: one row per day, summarizing planting, watering, harvest, tilling, tool-service, resource, and cash decisions.
-- `planting_batches.csv`: non-zero crop planting decisions by crop and planting day.
-- `daily_cash_balance.png`: daily end-of-day cash trajectory.
+Each resource-allocation scenario has its own subfolder, so one notebook run cannot overwrite another scenario's results.
+
+- `full_resources/`: results from `planting_gurobi_milp.ipynb`, which uses the complete daily time, energy, and initial-cash budget.
+- `one_third_resources/`: results from `planting_gurobi_milp_one_third_resources.ipynb`, which uses one-third of those three resources.
+
+Within each scenario folder:
+
+- `daily_decisions*.csv`: one row per day, summarizing planting, watering, harvest, tilling, tool-service, resource, and cash decisions.
+- `planting_batches*.csv`: non-zero crop planting decisions by crop and planting day.
+- `daily_cash_balance*.png`: daily end-of-day cash trajectory.
 
 ## Working conventions
 
