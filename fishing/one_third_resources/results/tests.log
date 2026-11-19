@@ -1,0 +1,10 @@
+test_changed_baseline_rejected (test_one_third.OneThirdTests.test_changed_baseline_rejected) ... ok
+test_other_resource_share_rejected (test_one_third.OneThirdTests.test_other_resource_share_rejected) ... ok
+test_saved_schedule_and_integration_are_audited (test_one_third.OneThirdTests.test_saved_schedule_and_integration_are_audited) ... ok
+test_tampered_integration_is_rejected (test_one_third.OneThirdTests.test_tampered_integration_is_rejected) ... ok
+test_unrounded_initial_cash_and_full_windows (test_one_third.OneThirdTests.test_unrounded_initial_cash_and_full_windows) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.081s
+
+OK
