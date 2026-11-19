@@ -1,0 +1,6 @@
+# Local report authoring and render previews, preserved during cleanup.
+/XT0009_extend_audit_report.py
+/XG0004_mining_comparison/XT0008_review/
+/XG0004_mining_comparison/XT0011_audit_review/
+/XG0004_mining_comparison/.XG0004_mining_comparison-visual-*/
+__pycache__/

@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 MINING_DIR = os.path.join(BASE_DIR, "mining", "data")
 SHARED_DIR = os.path.join(BASE_DIR, "shared", "data")
 

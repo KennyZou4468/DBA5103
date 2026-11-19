@@ -4,7 +4,7 @@ import numpy as np
 import gurobipy as gp
 from gurobipy import GRB
 
-from XT0005_mining_milp_solver import load_mining_parameters, build_and_solve_mining_milp
+from ZG0001_archive.XT0005_mining_milp_solver import load_mining_parameters, build_and_solve_mining_milp
 
 
 def build_and_solve_full_year_mining_milp(
