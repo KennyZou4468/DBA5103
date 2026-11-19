@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": 4297,
+  "errors": [],
+  "tolerance": 0.0001,
+  "scope": "CSV-based schedule feasibility and accounting; not a proof of game fidelity or optimality",
+  "input_and_code_hashes_match": true,
+  "scenario_config_matches": true,
+  "integration_rows_verified": 112,
+  "yearly_cash_reconciles": true
+}

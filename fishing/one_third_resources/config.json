@@ -1,0 +1,16 @@
+{
+  "scenario": "fishing_one_third_resources",
+  "horizon_days": 112,
+  "resource_share": {"numerator": 1, "denominator": 3},
+  "daily_time_allocation": "total_cap_with_full_clock_windows",
+  "baseline_expected": {
+    "initial_cash_g": 500,
+    "daily_time_game_minutes": 900,
+    "daily_energy": 270
+  },
+  "solver": {
+    "backend": "highs",
+    "time_limit_seconds": 180,
+    "relative_gap": 0
+  }
+}
