@@ -1,0 +1,56 @@
+LP has 3250 rows; 18514 cols; 132038 nonzeros
+Coefficient ranges:
+  Matrix  [3e-01, 8e+03]
+  Cost    [1e+00, 1e+00]
+  Bound   [1e+00, 4e+03]
+  RHS     [1e+00, 9e+02]
+WARNING: No semi-integer/integer variables in model with non-empty integrality
+Presolving model
+3250 rows, 18514 cols, 132038 nonzeros 0s
+Initial sweep removes 0 + 97 = 97 / 18514 empty + fixed columns
+Initial sweep identifies 96 + 21 + 2 = 119 / 3250 empty + singleton + redundant rows
+Considering dependency of 261 equations in 17083 variables with 33979 nonzeros
+Dependent equations search removed 0 equations and 0 nonzeros
+2832 rows, 18108 cols, 131209 nonzeros 0s
+Presolve reductions: rows 2832(-418); columns 18108(-406); nonzeros 131209(-829) 
+Solving the presolved LP
+Choosing to use dual simplex solver
+Using dual simplex solver
+  Iteration        Objective     Infeasibilities num(sum)
+          0    -1.5999828461e+01 Ph1: 1(1); Du: 1(15.9998) 0.0s
+       3341    -3.1229434207e+05 Pr: 0(0); Du: 0(1.42109e-13) 0.1s
+Performed postsolve
+Solving the original LP from the solution after postsolve
+Model status        : Optimal
+Simplex   iterations: 3341
+Objective value     :  3.1229434207e+05
+P-D objective error :  5.5916063674e-16
+HiGHS run time      :          0.13
+LP has 3250 rows; 18514 cols; 132038 nonzeros
+Coefficient ranges:
+  Matrix  [3e-01, 8e+03]
+  Cost    [1e+00, 1e+00]
+  Bound   [1e+00, 4e+03]
+  RHS     [1e+00, 9e+02]
+WARNING: No semi-integer/integer variables in model with non-empty integrality
+Presolving model
+3250 rows, 18514 cols, 132038 nonzeros 0s
+Initial sweep removes 0 + 97 = 97 / 18514 empty + fixed columns
+Initial sweep identifies 96 + 21 + 2 = 119 / 3250 empty + singleton + redundant rows
+Considering dependency of 261 equations in 17083 variables with 33979 nonzeros
+Dependent equations search removed 0 equations and 0 nonzeros
+2832 rows, 18108 cols, 131209 nonzeros 0s
+Presolve reductions: rows 2832(-418); columns 18108(-406); nonzeros 131209(-829) 
+Solving the presolved LP
+Choosing to use dual simplex solver
+Using dual simplex solver
+  Iteration        Objective     Infeasibilities num(sum)
+          0    -1.5999828461e+01 Ph1: 1(1); Du: 1(15.9998) 0.0s
+       3341    -3.1229434207e+05 Pr: 0(0); Du: 0(1.42109e-13) 0.1s
+Performed postsolve
+Solving the original LP from the solution after postsolve
+Model status        : Optimal
+Simplex   iterations: 3341
+Objective value     :  3.1229434207e+05
+P-D objective error :  5.5916063674e-16
+HiGHS run time      :          0.15

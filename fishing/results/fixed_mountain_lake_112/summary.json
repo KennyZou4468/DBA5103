@@ -1,0 +1,55 @@
+{
+  "backend": "HiGHS",
+  "version": "1.16.0",
+  "status": "Optimal",
+  "objective": 280217.7986600008,
+  "best_bound": 280217.7986600008,
+  "mip_gap": 0.0,
+  "nodes": 447,
+  "solve_seconds": 18.218388457999936,
+  "variables": 13098,
+  "constraints": 3250,
+  "relaxation": false,
+  "config": {
+    "horizon": 112,
+    "resource_share": 1.0,
+    "energy_budget": null,
+    "fixed_location": "mountain_lake",
+    "no_rods": false,
+    "prune": true
+  },
+  "budgets": {
+    "energy": 270.0,
+    "minutes": 900.0,
+    "cash": 500.0
+  },
+  "cash_end_g": 280217.7986600005,
+  "gross_revenue_g": 289057.79866,
+  "total_cost_g": 9340.0,
+  "total_casts": 4211,
+  "first_100000_day": 45,
+  "rod_purchase_days": {
+    "fiberglass_rod": 2,
+    "iridium_rod": null
+  },
+  "audit": {
+    "passed": true,
+    "checks": 6994,
+    "errors": [],
+    "tolerance": 0.0001,
+    "scope": "CSV-based schedule feasibility and accounting; not a proof of game fidelity or optimality"
+  },
+  "input_sha256": {
+    "fishing/data/fishing_equipment_catalog.csv": "23d2f89fc0eca4144771987a1776f962563179b855cf1d531d3ded8968995200",
+    "fishing/data/fishing_equipment_modes.csv": "4a875451666ffceee36b6e7042a9976aac2980e124e8db9224ba26bcfb7a7d25",
+    "fishing/data/fishing_experience_levels.csv": "03c2ab3643f02783f3f5419b984227747dfb45d2b40644f475c8e5b19bafb7d8",
+    "fishing/data/fishing_experience_rules.csv": "b90fcb7c5c3916e9561c8f0334152f27cea1c9d1e8b95a92f7e0ad1068a055af",
+    "fishing/data/fishing_locations.csv": "894ba9b96235f9069b40a719607004ddc084a9f8029f42bc31c3d90a036a4974",
+    "fishing/data/fishing_rod_catalog.csv": "e57cced6c31dc4e55aaf7f9ad18991ecf1864ea48b34b57eb0e1b385eabd8c5c",
+    "fishing/data/fishing_solver_parameters.csv": "74dd652f210ab2bc75cf8afee88b2d33ecb935591985dda34ad0fc44f3f770fd",
+    "fishing/data/fishing_time_blocks.csv": "9641f18114c36182c69e1a477f95fb4dfc734d46665ada050d38dad53b6e7237",
+    "fishing/data/fishing_timing_rules.csv": "94fb801807329a94ccfb1783a6505b9f7a52680e0d640ff3d9503fab042ede09",
+    "shared/data/global_parameters.csv": "2c851e76425b3f8d226a1d020df0dd7bb9b1d18163ec0dccd280b7f75714911d"
+  },
+  "python": "3.12.14"
+}
