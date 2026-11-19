@@ -1,0 +1,55 @@
+﻿crop_key,crop_name,plant_day,season_day,tiles
+seed_472,Parsnip,1,Spring 1,8.0
+seed_472,Parsnip,6,Spring 6,14.0
+seed_429,Blue Jazz,11,Spring 11,1.0
+seed_472,Parsnip,11,Spring 11,13.0
+seed_472,Parsnip,14,Spring 14,10.0
+seed_472,Parsnip,16,Spring 16,13.0
+seed_472,Parsnip,19,Spring 19,30.0
+seed_472,Parsnip,21,Spring 21,13.0
+seed_472,Parsnip,24,Spring 24,62.0
+seed_479,Melon,29,Summer 1,6.0
+seed_484,Radish,29,Summer 1,24.0
+seed_479,Melon,30,Summer 2,10.0
+seed_483,Wheat,30,Summer 2,8.0
+seed_483,Wheat,31,Summer 3,16.0
+seed_483,Wheat,32,Summer 4,7.0
+seed_484,Radish,32,Summer 4,1.0
+seed_483,Wheat,33,Summer 5,3.0
+seed_483,Wheat,34,Summer 6,1.0
+seed_484,Radish,35,Summer 7,5.0
+seed_484,Radish,36,Summer 8,64.0
+seed_483,Wheat,37,Summer 9,3.0
+seed_483,Wheat,38,Summer 10,2.0
+seed_479,Melon,44,Summer 16,90.0
+seed_482,Hot Pepper,44,Summer 16,13.0
+seed_483,Wheat,44,Summer 16,3.0
+seed_483,Wheat,45,Summer 17,54.0
+seed_483,Wheat,47,Summer 19,6.0
+seed_483,Wheat,49,Summer 21,1.0
+seed_484,Radish,49,Summer 21,1.0
+seed_484,Radish,50,Summer 22,47.0
+seed_483,Wheat,53,Summer 25,31.0
+seed_483,Wheat,54,Summer 26,16.0
+seed_483,Wheat,55,Summer 27,8.0
+seed_483,Wheat,56,Summer 28,10.0
+seed_490,Pumpkin,57,Fall 1,23.0
+seed_493,Cranberries,57,Fall 1,37.0
+seed_490,Pumpkin,58,Fall 2,14.0
+seed_492,Yam,58,Fall 2,21.0
+seed_493,Cranberries,58,Fall 2,2.0
+seed_299,Amaranth,59,Fall 3,5.0
+seed_301,Grape,59,Fall 3,11.0
+seed_491,Bok Choy,59,Fall 3,18.0
+seed_493,Cranberries,60,Fall 4,27.0
+seed_493,Cranberries,61,Fall 5,17.0
+seed_490,Pumpkin,62,Fall 6,13.0
+seed_490,Pumpkin,63,Fall 7,7.0
+seed_490,Pumpkin,65,Fall 9,15.0
+seed_490,Pumpkin,70,Fall 14,23.0
+seed_490,Pumpkin,71,Fall 15,24.0
+seed_491,Bok Choy,73,Fall 17,1.0
+seed_299,Amaranth,75,Fall 19,12.0
+seed_299,Amaranth,76,Fall 20,18.0
+seed_488,Eggplant,79,Fall 23,3.0
+seed_491,Bok Choy,80,Fall 24,20.0
