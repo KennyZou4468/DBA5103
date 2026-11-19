@@ -5,10 +5,14 @@ Outputs prefixed XG0003 are written beside this script; source data is read-only
 """
 
 from pathlib import Path
+import sys
 import math
 import pandas as pd
 
-from XT0005_mining_milp_solver import load_mining_parameters
+# Keep the main solver importable when this archived runner is executed directly.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from ZG0001_archive.XT0005_mining_milp_solver import load_mining_parameters
 from XT0006_full_year_mining_milp import build_and_solve_full_year_mining_milp
 
 

@@ -7,14 +7,14 @@ Updated: 2026-11-16. Scope: standalone mining; deterministic expected yields; no
 
 **OPEN C03 — compact cross-zone ordering:** `OneMarg` limits the number of marginal floors but does not ensure that this floor is in the deepest visited zone. A forced T=28 Day-21 solution is solver-feasible with Zone 1 clears=2, Zone 1 marginal entry=1 and marginal rocks=8, plus Zone 2 clears=1; objective 11,079.592236g. This conflicts with the intended single continuous descent interpretation. The three selected annual baseline solutions did not exhibit this pattern in an additional raw-variable check, but a feasible counterexample disproves a general route-equivalence claim. Repair the ordering constraints and rerun before global integration or claiming full model/specification equivalence. No solver code was changed in this documentation task.
 
-The Kami report now includes pages 4-8 with a constraint checklist, source/units dictionary for all 25 loaded parameter keys and 10 solver controls, the seven decision-variable families (1,620 annual variables), and a separation of expressions and CSV outputs. See `XG0004_mining_comparison/XG0004_mining_comparison.pdf`.
+The Kami report now includes pages 4-8 with a constraint checklist, source/units dictionary for all 25 loaded parameter keys and 10 solver controls, the seven decision-variable families (1,620 annual variables), and a separation of expressions and CSV outputs. See `../XG0004_mining_comparison.pdf`.
 
 ## Reproduce and inspect
 
 Run from the repository root:
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 python3 mining/Jiahe_Solution/XT0007_resource_share_analysis.py
+PYTHONDONTWRITEBYTECODE=1 python3 mining/Jiahe_Solution/ZG0001_archive/XT0007_resource_share_analysis.py
 ```
 
 The script uses existing pandas, numpy and gurobipy. It writes these files beside itself:
