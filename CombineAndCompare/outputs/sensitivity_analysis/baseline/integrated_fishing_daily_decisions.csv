@@ -1,0 +1,113 @@
+﻿day,fishing_action,fishing_casts,fishing_rod_purchase,fishing_expense_g,fishing_revenue_g,fishing_time,fishing_energy,net_cash_flow_g,cumulative_net_cash_flow_g
+1,mountain_lake / none x 8; mountain_lake / none x 10; mountain_lake / none x 8; ocean / none x 7,33.0,-,0.0,1727.122103,722.6999999999999,264.0,1727.122103,1727.122103
+2,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 7,34.0,-,0.0,1807.1406350000002,731.0,265.2,1807.1406350000002,3534.2627380000004
+3,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 8,35.0,-,0.0,1864.812734,745.5,269.5,1864.812734,5399.075472
+4,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 8,35.0,-,0.0,1873.2837329999998,738.5,266.0,1873.2837329999998,7272.359205000001
+5,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 7,34.0,-,0.0,1825.5048029999998,717.4000000000001,258.4,1825.5048029999998,9097.864008
+6,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 9,36.0,-,0.0,1928.0672819999998,756.0,270.0,1928.0672819999998,11025.93129
+7,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 9,36.0,-,0.0,1928.0672819999998,756.0,270.0,1928.0672819999998,12953.998572
+8,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; ocean / none x 9,36.0,-,0.0,1928.0672819999998,756.0,270.0,1928.0672819999998,14882.065854
+9,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1; ocean / none x 8,36.0,fiberglass_rod,1805.0,1941.2646359999999,738.4,266.40000000000003,136.26463599999988,15018.33049
+10,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1; ocean / none x 6,36.0,-,15.0,1956.5257140000003,717.5999999999999,266.40000000000003,1941.5257140000003,16959.856204
+11,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1; ocean / none x 6,36.0,-,15.0,1956.5257140000003,717.5999999999999,266.40000000000003,1941.5257140000003,18901.381918
+12,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1; ocean / none x 6,36.0,-,15.0,1961.077422,710.7,262.8,1946.077422,20847.459339999998
+13,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 5; mountain_lake / bait x 13; mountain_lake / none x 8; mountain_lake / bait x 1,36.0,-,75.0,2007.356076,587.0999999999999,262.8,1932.356076,22779.815415999998
+14,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1; ocean / none x 6,36.0,-,15.0,1961.077422,710.7,262.8,1946.077422,24725.892837999996
+15,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1; ocean / none x 6,36.0,-,15.0,1961.077422,710.7,262.8,1946.077422,26671.970259999995
+16,mountain_lake / bait x 16,16.0,-,80.0,893.889072,163.2,115.2,813.889072,27485.859331999996
+17,mountain_lake / none x 2; mountain_lake / none x 11,13.0,-,0.0,726.2848710000001,265.2,93.60000000000001,726.2848710000001,28212.144202999996
+18,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 10; mountain_lake / bait x 3; mountain_lake / none x 8; mountain_lake / bait x 1,31.0,-,25.0,1731.9100770000002,581.4000000000001,223.2,1706.9100770000002,29919.054279999997
+19,mountain_lake / none x 7; mountain_lake / none x 10; mountain_lake / none x 8,25.0,-,0.0,1396.701675,509.99999999999994,180.0,1396.701675,31315.755954999997
+20,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 9; mountain_lake / bait x 5; mountain_lake / none x 8; mountain_lake / bait x 1,32.0,-,35.0,1787.778144,581.4000000000001,230.39999999999998,1752.778144,33068.534099
+21,mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / none x 8,20.0,-,5.0,1117.3613400000002,397.79999999999995,144.0,1112.3613400000002,34180.895439
+22,mountain_lake / bait x 1,1.0,-,5.0,55.868067,10.2,7.2,50.868067,34231.763506
+23,mountain_lake / none x 1,1.0,-,0.0,55.868067,20.4,7.2,55.868067,34287.631573000006
+24,-,0.0,-,0.0,0.0,0.0,0.0,0.0,34287.631573000006
+25,-,0.0,-,0.0,0.0,0.0,0.0,0.0,34287.631573000006
+26,mountain_lake / none x 10,10.0,-,0.0,558.6806700000001,204.0,72.0,558.6806700000001,34846.31224300001
+27,mountain_lake / none x 1; mountain_lake / none x 11,12.0,-,0.0,670.4168040000001,244.79999999999998,86.4,670.4168040000001,35516.72904700001
+28,mountain_lake / none x 8; mountain_lake / bait x 1,9.0,-,5.0,502.812603,173.39999999999998,64.8,497.812603,36014.54165000001
+29,-,0.0,-,0.0,0.0,0.0,0.0,0.0,36014.54165000001
+30,-,0.0,-,0.0,0.0,0.0,0.0,0.0,36014.54165000001
+31,-,0.0,-,0.0,0.0,0.0,0.0,0.0,36014.54165000001
+32,ocean / bait x 23,23.0,-,115.0,2212.1488090000003,234.6,165.6,2097.1488090000003,38111.690459000005
+33,ocean / bait x 23,23.0,-,115.0,2212.1488090000003,234.6,165.6,2097.1488090000003,40208.839268
+34,ocean / bait x 23,23.0,-,115.0,2212.1488090000003,234.6,165.6,2097.1488090000003,42305.988077
+35,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,44416.912529
+36,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,46527.836981
+37,ocean / none x 4; ocean / bait x 11,15.0,-,55.0,1451.68986,191.89999999999998,106.5,1396.68986,47924.526841
+38,ocean / none x 3; ocean / bait x 12,15.0,-,60.0,1451.6898600000002,181.79999999999998,106.49999999999999,1391.6898600000002,49316.216701
+39,ocean / none x 3; ocean / bait x 12,15.0,-,60.0,1451.6898600000002,181.79999999999998,106.49999999999999,1391.6898600000002,50707.906560999996
+40,ocean / none x 3; ocean / bait x 12,15.0,-,60.0,1451.6898600000002,181.79999999999998,106.49999999999999,1391.6898600000002,52099.596420999995
+41,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,54210.520872999994
+42,-,0.0,-,0.0,0.0,0.0,0.0,0.0,54210.520872999994
+43,-,0.0,-,0.0,0.0,0.0,0.0,0.0,54210.520872999994
+44,-,0.0,-,0.0,0.0,0.0,0.0,0.0,54210.520872999994
+45,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,56321.44532499999
+46,-,0.0,-,0.0,0.0,0.0,0.0,0.0,56321.44532499999
+47,-,0.0,-,0.0,0.0,0.0,0.0,0.0,56321.44532499999
+48,-,0.0,-,0.0,0.0,0.0,0.0,0.0,56321.44532499999
+49,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,58432.36977699999
+50,ocean / bait x 4,4.0,-,20.0,387.117296,40.4,28.4,367.117296,58799.48707299999
+51,-,0.0,-,0.0,0.0,0.0,0.0,0.0,58799.48707299999
+52,-,0.0,-,0.0,0.0,0.0,0.0,0.0,58799.48707299999
+53,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,60910.41152499999
+54,ocean / bait x 23,23.0,-,115.0,2225.924452,232.29999999999998,163.29999999999998,2110.924452,63021.33597699999
+55,ocean / bait x 10; ocean / bait x 23,33.0,-,165.0,3035.5284020000004,333.29999999999995,234.29999999999998,2870.5284020000004,65891.86437899999
+56,ocean / none x 8; ocean / bait x 23; ocean / none x 7,38.0,-,115.0,3437.93707,535.3,269.79999999999995,3322.93707,69214.80144899999
+57,-,0.0,-,0.0,0.0,0.0,0.0,0.0,69214.80144899999
+58,ocean / bait x 17,17.0,-,85.0,1202.9330220000002,171.7,120.69999999999999,1117.9330220000002,70332.73447099999
+59,-,0.0,-,0.0,0.0,0.0,0.0,0.0,70332.73447099999
+60,-,0.0,-,0.0,0.0,0.0,0.0,0.0,70332.73447099999
+61,-,0.0,-,0.0,0.0,0.0,0.0,0.0,70332.73447099999
+62,ocean / none x 5,5.0,-,0.0,353.80383,101.0,35.5,353.80383,70686.538301
+63,ocean / bait x 21,21.0,-,105.0,1485.9760860000001,212.1,149.1,1380.9760860000001,72067.51438699999
+64,-,0.0,-,0.0,0.0,0.0,0.0,0.0,72067.51438699999
+65,ocean / bait x 21,21.0,-,105.0,1485.9760860000001,212.1,149.1,1380.9760860000001,73448.49047299998
+66,ocean / bait x 24,24.0,-,120.0,1698.2583840000002,242.39999999999998,170.39999999999998,1578.2583840000002,75026.74885699998
+67,ocean / bait x 19,19.0,-,95.0,1363.763817,190.0,133.0,1268.763817,76295.51267399998
+68,ocean / bait x 22,22.0,-,110.0,1579.0949460000002,220.0,154.0,1469.0949460000002,77764.60761999998
+69,-,0.0,-,0.0,0.0,0.0,0.0,0.0,77764.60761999998
+70,-,0.0,-,0.0,0.0,0.0,0.0,0.0,77764.60761999998
+71,-,0.0,-,0.0,0.0,0.0,0.0,0.0,77764.60761999998
+72,ocean / bait x 4,4.0,-,20.0,287.108172,40.0,28.0,267.108172,78031.71579199997
+73,ocean / bait x 16,16.0,-,80.0,1148.432688,160.0,112.0,1068.432688,79100.14847999997
+74,-,0.0,-,0.0,0.0,0.0,0.0,0.0,79100.14847999997
+75,ocean / bait x 13,13.0,-,65.0,933.1015590000001,130.0,91.0,868.1015590000001,79968.25003899998
+76,ocean / bait x 21,21.0,-,105.0,1507.3179030000001,210.0,147.0,1402.3179030000001,81370.56794199998
+77,ocean / bait x 13,13.0,-,65.0,933.1015590000001,130.0,91.0,868.1015590000001,82238.66950099998
+78,ocean / bait x 8,8.0,-,40.0,574.216344,80.0,56.0,534.216344,82772.88584499998
+79,-,0.0,-,0.0,0.0,0.0,0.0,0.0,82772.88584499998
+80,ocean / bait x 21,21.0,-,105.0,1507.3179030000001,210.0,147.0,1402.3179030000001,84175.20374799999
+81,ocean / bait x 13,13.0,-,65.0,933.1015590000001,130.0,91.0,868.1015590000001,85043.30530699999
+82,ocean / bait x 21,21.0,-,105.0,1507.3179030000001,210.0,147.0,1402.3179030000001,86445.62320999999
+83,ocean / bait x 29,29.0,-,145.0,2081.534247,290.0,203.0,1936.534247,88382.157457
+84,town_river / none x 8; ocean / bait x 30,38.0,-,150.0,2683.59469,460.8,266.0,2533.59469,90915.75214699999
+85,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 17,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,94133.43478899999
+86,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,97351.11743099999
+87,mountain_lake / bait x 17; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,100568.80007299999
+88,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,103786.48271499999
+89,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 17,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,107004.16535699999
+90,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 17,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,110221.84799899999
+91,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 3; mountain_lake / bait x 17; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,113439.53064099999
+92,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,116657.21328299999
+93,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 17,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,119874.89592499999
+94,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,123092.57856699999
+95,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,126310.26120899999
+96,mountain_lake / bait x 17; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,129527.94385099999
+97,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,132745.626493
+98,mountain_lake / bait x 17; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,135963.309135
+99,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 17,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,139180.991777
+100,mountain_lake / bait x 17; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,142398.674419
+101,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,145616.357061
+102,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,148834.039703
+103,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,152051.722345
+104,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,155269.404987
+105,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,158487.087629
+106,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,161704.770271
+107,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 17,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,164922.452913
+108,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,168140.135555
+109,mountain_lake / none x 8; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / bait x 18,38.0,-,95.0,3312.6826419999998,571.9000000000001,266.0,3217.6826419999998,171357.818197
+110,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 3; mountain_lake / bait x 17; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,174575.500839
+111,mountain_lake / none x 8; mountain_lake / bait x 1; mountain_lake / none x 3; mountain_lake / bait x 17; mountain_lake / none x 8; mountain_lake / bait x 1,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,177793.183481
+112,mountain_lake / bait x 18; mountain_lake / none x 11; mountain_lake / bait x 1; mountain_lake / none x 8,38.0,-,95.0,3312.682642,571.9000000000001,266.0,3217.682642,181010.86612299999

@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | `benchmark.ipynb` | 固定平均分配 | 计算资源不能跨模块调配时的基准表现。 |
 | `FullVersion.ipynb` | 全局联立优化 | 在一个 Gurobi 模型中联立 planting、mining、fishing，并自由分配共享资源。 |
+| `SensitivityAnalysis.ipynb` | 单因素敏感性分析 | 在初始现金、每日时间、每日体力及黑匠服务容量上逐项改变设定，并比较联立模型结果。 |
 
 当前有效模块为 `planting`、`mining` 和 `fishing`。`FullVersion.ipynb` 调用
 `full_version_solver.py`，由三个 adapter 将内部变量与约束加入**同一个** Gurobi
@@ -99,6 +100,7 @@ FullVersion 对黑匠增加全局容量：同一天最多交付一把升级工�
 2. `adapters/mining_adapter.py`：保留矿区、镐子升级、开矿日和日度采矿约束，输出采矿日度流量。
 3. `adapters/fishing_adapter.py`：保留可行钓鱼活动、鱼竿购买、诱饵／配件约束，输出钓鱼日度流量。
 4. `full_version_solver.py`：添加唯一现金路径、共享时间／体力和铁匠容量，并导出报告。
+5. `sensitivity_analysis.py`：调用同一个 full-version solver 运行预先定义的单因素情景，并汇总可审计的比较结果。
 
 ## 6. FullVersion 输出
 
@@ -115,3 +117,20 @@ FullVersion 对黑匠增加全局容量：同一天最多交付一把升级工�
 
 若 Gurobi 因设置的 `TimeLimit` 停止，`summary.json` 的 `status=9` 表示保留了可行解；此时
 `mip_gap` 必须随结果一起报告，不能称该解为已证明最优。
+
+## 7. SensitivityAnalysis 输出
+
+`SensitivityAnalysis.ipynb` 默认采用 180 秒的单情景时限，依次运行
+8 个情景：baseline、初始现金 250g/1,000g、每日时间 720/1,080 分钟、每日体力
+216/324，以及黑匠服务容量为 2 把工具。每次只改变一个输入；黑匠容量情景仍保留
+“每天最多提交一把工具”的限制。
+
+结果写入 `outputs/sensitivity_analysis/`：
+
+- `sensitivity_summary.csv` 与 `sensitivity_summary.json`：情景参数、日末现金、best bound、MIP gap、分模块收入／支出和资源峰值；
+- `terminal_cash_by_scenario.png`：各情景的 Day-112 现金比较；
+- `module_revenue_by_scenario.png`：三模块总收入构成比较；
+- 每个情景的子文件夹：该情景完整的日度决策、现金流和模块利润流文件。
+
+这是 MIP 的重复求解实验，而不是 LP shadow-price 分析；读取结果时应将每个情景的
+`mip_gap` 一并报告。
