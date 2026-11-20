@@ -6,7 +6,7 @@ benchmark or full-version notebook adds the cross-module constraints.
 """
 
 from dataclasses import dataclass
-from typing import Mapping, Optional
+from typing import Any, Mapping, Optional
 
 import gurobipy as gp
 from gurobipy import GRB
@@ -22,6 +22,8 @@ class ModuleFlows:
     expense: Mapping[int, gp.LinExpr]
     revenue: Mapping[int, gp.LinExpr]
     upgrade_submissions: Optional[Mapping[int, gp.LinExpr]] = None
+    blacksmith_service: Optional[Mapping[int, gp.LinExpr]] = None
+    artifacts: Optional[Mapping[str, Any]] = None
 
 
 def add_benchmark_constraints(
@@ -62,6 +64,7 @@ def add_full_version_constraints(
     daily_time: float = 900.0,
     daily_energy: float = 270.0,
     enforce_one_blacksmith_submission: bool = True,
+    enforce_one_blacksmith_service: bool = True,
 ) -> dict[int, gp.Var]:
     """Add shared cash, time, energy, and optional Blacksmith capacity constraints."""
     if not flows_by_module:
@@ -87,5 +90,14 @@ def add_full_version_constraints(
             ]
             if submissions:
                 model.addConstr(gp.quicksum(submissions) <= 1, name=f"shared_blacksmith_capacity[{t}]")
+
+        if enforce_one_blacksmith_service:
+            services = [
+                flows.blacksmith_service[t]
+                for flows in flows_by_module.values()
+                if flows.blacksmith_service is not None
+            ]
+            if services:
+                model.addConstr(gp.quicksum(services) <= 1, name=f"shared_blacksmith_service[{t}]")
 
     return cash
