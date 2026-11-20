@@ -1,0 +1,19 @@
+{
+  "status": 9,
+  "objective_day_112_cash_g": 674487.18,
+  "best_bound": 812462.77,
+  "mip_gap": 0.20456369458905355,
+  "max_total_time": 899.9604,
+  "max_total_energy": 270.0,
+  "terminal_cash_g": 674487.18,
+  "total_revenue_g": {
+    "planting": 655195.0,
+    "mining": 1579.83,
+    "fishing": 209087.35
+  },
+  "total_expense_g": {
+    "planting": 181810.0,
+    "mining": 0.0,
+    "fishing": 10065.0
+  }
+}

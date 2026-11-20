@@ -1,0 +1,21 @@
+﻿day,crop_key,crop_name,tiles
+9,seed_474,Cauliflower,9.0
+9,seed_477,Kale,10.0
+10,seed_472,Parsnip,2.0
+16,seed_474,Cauliflower,12.0
+21,seed_477,Kale,9.0
+29,seed_481,Blueberry,183.0
+30,seed_481,Blueberry,141.0
+31,seed_481,Blueberry,109.0
+32,seed_481,Blueberry,14.0
+57,seed_490,Pumpkin,84.0
+57,seed_493,Cranberries,130.0
+58,seed_490,Pumpkin,52.0
+58,seed_492,Yam,7.0
+58,seed_493,Cranberries,7.0
+59,seed_301,Grape,7.0
+60,seed_493,Cranberries,109.0
+61,seed_493,Cranberries,116.0
+70,seed_490,Pumpkin,65.0
+71,seed_490,Pumpkin,78.0
+80,seed_491,Bok Choy,7.0

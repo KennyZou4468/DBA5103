@@ -37,7 +37,14 @@ def _summary(values: list[tuple[str, float]]) -> str:
     return "; ".join(parts) if parts else "-"
 
 
-def build_model(project_root: Path) -> tuple[gp.Model, dict, dict[int, gp.Var]]:
+def build_model(
+    project_root: Path,
+    initial_cash: float = INITIAL_CASH,
+    daily_time: float = DAILY_TIME,
+    daily_energy: float = DAILY_ENERGY,
+    blacksmith_submission_capacity: int = 1,
+    blacksmith_service_capacity: int = 1,
+) -> tuple[gp.Model, dict, dict[int, gp.Var]]:
     """Build the full integrated MILP and return model, module flows, shared cash."""
     model = gp.Model("stardew_full_version_all_modules")
     days = range(1, HORIZON + 1)
@@ -48,20 +55,29 @@ def build_model(project_root: Path) -> tuple[gp.Model, dict, dict[int, gp.Var]]:
     }
     cash = add_full_version_constraints(
         model, flows, days,
-        initial_cash=INITIAL_CASH,
-        daily_time=DAILY_TIME,
-        daily_energy=DAILY_ENERGY,
+        initial_cash=initial_cash,
+        daily_time=daily_time,
+        daily_energy=daily_energy,
         enforce_one_blacksmith_submission=True,
         enforce_one_blacksmith_service=True,
+        blacksmith_submission_capacity=blacksmith_submission_capacity,
+        blacksmith_service_capacity=blacksmith_service_capacity,
     )
     model.setObjective(cash[HORIZON], GRB.MAXIMIZE)
     model.update()
     return model, flows, cash
 
 
-def export_solution(project_root: Path, model: gp.Model, flows: dict, cash: dict[int, gp.Var]) -> dict:
+def export_solution(
+    project_root: Path,
+    model: gp.Model,
+    flows: dict,
+    cash: dict[int, gp.Var],
+    output_dir: Path | None = None,
+    initial_cash: float = INITIAL_CASH,
+) -> dict:
     """Write daily module decisions, detailed activities, shared cash chart, and summary."""
-    out = project_root / "CombineAndCompare" / "outputs" / "full_version"
+    out = output_dir or project_root / "CombineAndCompare" / "outputs" / "full_version"
     out.mkdir(parents=True, exist_ok=True)
     plant, mine, fish = (flows[key].artifacts for key in ("planting", "mining", "fishing"))
     rows, plant_batches, fish_activities = [], [], []
@@ -176,14 +192,14 @@ def export_solution(project_root: Path, model: gp.Model, flows: dict, cash: dict
     }
     cash_flow_summary["initial_cash_g"] = ""
     cash_flow_summary["terminal_cash_g"] = ""
-    cash_flow_summary.loc[cash_flow_summary["module"].eq("overall"), "initial_cash_g"] = INITIAL_CASH
+    cash_flow_summary.loc[cash_flow_summary["module"].eq("overall"), "initial_cash_g"] = initial_cash
     cash_flow_summary.loc[cash_flow_summary["module"].eq("overall"), "terminal_cash_g"] = cash[HORIZON].X
     cash_flow_summary.to_csv(out / "integrated_total_cash_flow.csv", index=False, encoding="utf-8-sig")
 
     fig, ax = plt.subplots(figsize=(12, 4.5))
     ax.plot(daily["day"], daily["cash_end_g"], color="#2563EB", linewidth=2, label="Shared end-of-day cash")
     ax.fill_between(daily["day"], daily["cash_end_g"], color="#93C5FD", alpha=0.35)
-    ax.axhline(INITIAL_CASH, color="#64748B", linestyle="--", linewidth=1, label="Initial cash")
+    ax.axhline(initial_cash, color="#64748B", linestyle="--", linewidth=1, label="Initial cash")
     ax.set(title="Full Version: Shared Daily Cash Balance", xlabel="Day", ylabel="Gold (g)")
     ax.grid(axis="y", alpha=0.25); ax.legend(); fig.tight_layout()
     fig.savefig(out / "integrated_cash_balance.png", dpi=160, bbox_inches="tight")
@@ -226,18 +242,38 @@ def export_solution(project_root: Path, model: gp.Model, flows: dict, cash: dict
     return {"output_dir": out, "daily": daily, "summary": summary}
 
 
-def solve_full_version(project_root: Path, time_limit: float = 300.0, mip_gap: float = 0.001) -> dict:
+def solve_full_version(
+    project_root: Path,
+    time_limit: float = 300.0,
+    mip_gap: float = 0.001,
+    initial_cash: float = INITIAL_CASH,
+    daily_time: float = DAILY_TIME,
+    daily_energy: float = DAILY_ENERGY,
+    blacksmith_submission_capacity: int = 1,
+    blacksmith_service_capacity: int = 1,
+    output_dir: Path | None = None,
+) -> dict:
     """Build, solve, audit basic shared limits, and export all required reports."""
-    model, flows, cash = build_model(Path(project_root))
+    model, flows, cash = build_model(
+        Path(project_root),
+        initial_cash=initial_cash,
+        daily_time=daily_time,
+        daily_energy=daily_energy,
+        blacksmith_submission_capacity=blacksmith_submission_capacity,
+        blacksmith_service_capacity=blacksmith_service_capacity,
+    )
     model.Params.TimeLimit = time_limit
     model.Params.MIPGap = mip_gap
     model.optimize()
     if model.Status not in (GRB.OPTIMAL, GRB.TIME_LIMIT) or model.SolCount == 0:
         raise RuntimeError(f"No usable integrated solution; Gurobi status {model.Status}.")
-    result = export_solution(Path(project_root), model, flows, cash)
+    result = export_solution(
+        Path(project_root), model, flows, cash,
+        output_dir=output_dir, initial_cash=initial_cash,
+    )
     daily = result["daily"]
-    assert daily["total_time"].max() <= DAILY_TIME + 1e-6
-    assert daily["total_energy"].max() <= DAILY_ENERGY + 1e-6
+    assert daily["total_time"].max() <= daily_time + 1e-6
+    assert daily["total_energy"].max() <= daily_energy + 1e-6
     assert daily["cash_end_g"].min() >= -1e-6
     result["model"] = model
     return result

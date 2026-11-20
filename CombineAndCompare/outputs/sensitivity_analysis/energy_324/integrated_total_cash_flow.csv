@@ -1,0 +1,5 @@
+﻿module,total_revenue_g,total_expense_g,net_cash_flow_g,initial_cash_g,terminal_cash_g
+planting,654995.0,177350.0,477645.0,,
+mining,2166.575511,7900.0,-5733.424489,,
+fishing,218315.798862,10140.0,208175.798862,,
+overall,875477.374373,195390.0,680087.374373,500.0,680587.3743730001

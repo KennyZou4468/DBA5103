@@ -65,10 +65,20 @@ def add_full_version_constraints(
     daily_energy: float = 270.0,
     enforce_one_blacksmith_submission: bool = True,
     enforce_one_blacksmith_service: bool = True,
+    blacksmith_submission_capacity: int = 1,
+    blacksmith_service_capacity: int = 1,
 ) -> dict[int, gp.Var]:
-    """Add shared cash, time, energy, and optional Blacksmith capacity constraints."""
+    """Add shared cash, time, energy, and optional Blacksmith capacity constraints.
+
+    ``blacksmith_submission_capacity`` limits new upgrade submissions per day,
+    while ``blacksmith_service_capacity`` limits tools undergoing service.  The
+    two constraints are deliberately separate: the sensitivity experiment
+    changes only service capacity and preserves the one-submission rule.
+    """
     if not flows_by_module:
         raise ValueError("At least one active module is required.")
+    if blacksmith_submission_capacity < 0 or blacksmith_service_capacity < 0:
+        raise ValueError("Blacksmith capacities must be non-negative.")
     cash = model.addVars(range(0, max(days) + 1), lb=0.0, name="SharedCash")
     model.addConstr(cash[0] == initial_cash, name="shared_initial_cash")
 
@@ -89,7 +99,10 @@ def add_full_version_constraints(
                 if flows.upgrade_submissions is not None
             ]
             if submissions:
-                model.addConstr(gp.quicksum(submissions) <= 1, name=f"shared_blacksmith_capacity[{t}]")
+                model.addConstr(
+                    gp.quicksum(submissions) <= blacksmith_submission_capacity,
+                    name=f"shared_blacksmith_capacity[{t}]",
+                )
 
         if enforce_one_blacksmith_service:
             services = [
@@ -98,6 +111,9 @@ def add_full_version_constraints(
                 if flows.blacksmith_service is not None
             ]
             if services:
-                model.addConstr(gp.quicksum(services) <= 1, name=f"shared_blacksmith_service[{t}]")
+                model.addConstr(
+                    gp.quicksum(services) <= blacksmith_service_capacity,
+                    name=f"shared_blacksmith_service[{t}]",
+                )
 
     return cash
